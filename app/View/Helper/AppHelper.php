@@ -38,4 +38,9 @@ class AppHelper extends Helper {
 		else{return false;}
 		
 	}
+	 function iduser(){
+	 	
+		return CakeSession::read('Auth.User.id');
+		
+	 }
 }

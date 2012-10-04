@@ -74,5 +74,11 @@ class AppController extends Controller {
 		else{return false;}
 		
 	}
+	 
+	  function iduser(){
+		return $this->Session->read('Auth.User.id');
+		
+	 }
+	 
 	
 }

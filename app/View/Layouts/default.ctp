@@ -35,7 +35,7 @@
                   <a href="#" shape="rect"><?php echo _('Acceuil');  ?></a>
                 </li>
                 <li>
-                  <a href="#" shape="rect"><?php echo _('Reclamation');   ?></a>
+                  <a href="/Reclamations/listreclam" shape="rect"><?php echo _('Reclamation');   ?></a>
                 </li>
                 <?php if ($this->Html->isadmin()): ?>
                     <li>
@@ -71,6 +71,7 @@ If you want to remove this link please make a 10 dollars donation at www.dotempl
         </div> 
       </div> 
     </div> 
+      <?php debug($this->Session->read()); ?>
     <?php debug($this->request->params);  ?>
 	<?php echo $this->element('sql_dump'); ?>
   </body>
