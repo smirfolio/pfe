@@ -5,10 +5,11 @@
     <title>SNDP </title>
    <?php
 		echo $this->Html->meta('icon');
-
+		echo $this->Html->css('jqx.base');
 		echo $this->Html->css('style');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->script('bootstrap');
+		
 		echo $this->Html->script('jquery');
 
 		echo $this->fetch('meta');
@@ -20,7 +21,9 @@
   <body> 
     <div id="wrapper"> 
       <div id="bg"> 
+      	
         <div id="header"></div>  
+        	<?php echo $this->element('topnav') ?>
         <div id="page"> 
           <div id="container"> 
             <!-- Title -->  
@@ -30,22 +33,7 @@
             <!-- end banner -->  
             <!-- horizontal navigation -->  
             <div id="nav1"> 
-              <ul>
-                <li id="current" style="border:none">
-                  <a href="#" shape="rect"><?php echo _('Acceuil');  ?></a>
-                </li>
-                <li>
-                  <a href="/Reclamations/listreclam" shape="rect"><?php echo _('Reclamation');   ?></a>
-                </li>
-                <?php if ($this->Html->isadmin()): ?>
-                    <li>
-                  <a href="#" shape="rect"><?php echo _('Admin');   ?></a>
-                </li>
-                <?php endif ?>
-                 <li>
-                  <?php echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout', 'admin'=>false))  ?>
-                </li>
-              </ul> 
+             <?php echo $this->element('menu') ?>
             </div>  
             <!-- end horizontal navigation -->  
             <!--  content -->  

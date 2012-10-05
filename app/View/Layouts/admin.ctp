@@ -21,6 +21,7 @@
     <div id="wrapper"> 
       <div id="bg"> 
         <div id="header"></div>  
+      <?php echo $this->element('topnav') ?>
         <div id="page"> 
           <div id="container"> 
             <!-- Title -->  
@@ -30,24 +31,7 @@
             <!-- end banner -->  
             <!-- horizontal navigation -->  
             <div id="nav1"> 
-              <ul>
-                <li id="current" style="border:none">
-                  <a href="#" shape="rect">Home</a>
-                </li>
-                <li>
-                  <a href="#" shape="rect">Products</a>
-                </li>
-                <li>
-                  <a href="#" shape="rect">Services</a>
-                </li>
-               
-                <li>
-                  <a href="#" shape="rect">About</a>
-                </li>
-                 <li>
-                  <?php echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout', 'admin'=>false))  ?>
-                </li>
-              </ul> 
+               <?php echo $this->element('menu') ?>
             </div>  
             <!-- end horizontal navigation -->  
             <!--  content -->  

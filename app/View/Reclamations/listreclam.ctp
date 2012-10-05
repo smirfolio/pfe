@@ -1,6 +1,12 @@
 <?php  
 //debug($reclam);
  ?>
+ 	<?php  $this->Html->scriptStart(array('inline'=>false)); ?>
+ $('#example').tooltip(
+	placement :'right'
+
+)
+ <?php   $this->Html->scriptEnd(); ?>	
  <h3><?php echo __('Liste de vos réclamations') ?></h3>
 <table class="table table-striped table-bordered">
 	<thead>
@@ -13,7 +19,7 @@
 		
 		<th><?php echo __('Status') ?></th>
 		<th><?php echo __('Créer le') ?></th>
-		<th><?php echo __('Action') ?></th>
+		<th><?php //echo __('Action') ?></th>
 	</tr>
 	</thead>
 	<?php foreach ($reclam as $k => $v): ?>
@@ -27,9 +33,10 @@
 		
 		<td><?php echo $v['Statu']['label']  ?></td>
 		<td><?php echo $this->Time->format('d/M/Y',$v['Reclamation']['created']);   ?></td>
-		<td><a class="btn" href="/Reclamations/detailreclam/<?php echo $v['Reclamation']['id'] ?>"><i class=" icon-eye-open"></i></a> <a class="btn" href="#"><i class="icon-trash"></i></a></td>
+		<td><a class="btn" href="/Reclamations/detailreclam/<?php echo $v['Reclamation']['id'] ?>" ><i class=" icon-eye-open"></i></a>    <?php if ($this->Html->isadmin()): ?><a class="btn" href="#"><i class="icon-trash"></i></a><?php endif;  ?></td>
 	</tr>
 	<?php endforeach ?>
-	
-	
 </table>
+<div style="float: right;">
+<a class="btn btn-primary" href="/Reclamations/addreclam" ><i class="icon-plus icon-white"></i> <?php echo __('Ajout de reclamation') ?></a>
+</div>

@@ -79,6 +79,11 @@ class AppController extends Controller {
 		return $this->Session->read('Auth.User.id');
 		
 	 }
+	  
+	  function usersite(){
+		return $this->Session->read('Auth.User.site_id');
+		
+	 }
 	 
 	
 }

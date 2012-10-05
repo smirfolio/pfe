@@ -43,4 +43,13 @@ class AppHelper extends Helper {
 		return CakeSession::read('Auth.User.id');
 		
 	 }
+	 function nameuser(){
+	 	
+		return CakeSession::read('Auth.User.nom');
+		 }
+	 
+	  function myrole(){
+	 	
+		return CakeSession::read('Auth.User.role');
+		 }
 }

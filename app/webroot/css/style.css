@@ -60,9 +60,13 @@ body {
 	background-position: center top ;
 }
 
+#notif{
+    margin-top: 5px;
+    margin-left: 825px
+   
+}
 
-
-					#header {
+#header {
 	margin: 0 auto;
 	min-height:25px;
 	height: 25px;
