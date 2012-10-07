@@ -13,10 +13,6 @@ class Reclamation extends AppModel {
                 'required' => true,
                 'message'  => 'Vous devez choisir le vehicule en pannes'
         ),
-        'panne_id' => array(
-            'rule'    => array('minLength', '8'),
-            'message' => 'Minimum 8 characters long'
-        ),
         'panne' => array(
             'rule'       => 'notEmpty',
             'message'    => 'Vous devez détailler la pannes',

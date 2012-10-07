@@ -5,7 +5,7 @@
     * 
     */
    class ReclamationsController  extends AppController {
-      	public $uses = array('Panne','Vehicule','Reclamation');
+      	public $uses = array('Panne','Vehicule','Reclamation','Statu','Reparator');
 			public $helpers = array('Html', 'Session','Form');
 		public function listreclam(){
 			$id = $this->iduser();
@@ -71,7 +71,50 @@
 			}
 		}
 		
-		public function admin_editreclam(){}
+		public function admin_detailreclam($id=null){
+					if($this->request->is('put') || $this->request->is('post')) {
+			//	$this->Reclamation->id = $this->request->data['Reclamation']['id'];
+				//debug($this->request->data);die;
+			/*	$data= array('id'=>$this->request->data['Reclamation']['id'],
+				'statu_id'=>$this->request->data['Reclamation']['statu_id'],
+				'reparator_id'=>$this->request->data['Reclamation']['reparator_id'],
+				'vehicule_id'=>$this->request->data['Reclamation']['vehicule_id'],
+				'panne_id'=>$this->request->data['Reclamation']['panne_id'],
+				'panne'=>$this->request->data['Reclamation']['panne'],
+				);*/
+		//	debug($this->request->data);die;
+					$this->Reclamation->save($this->request->data) ;
+		 				 $this->Session->setFlash('Réclamation enregistré', 'notify');
+						 $this->redirect(array('action' => 'listreclam','admin'=>false));
+		 			
+					
+			}
+					
+			if(isset($id)){
+					$statu = $this->Statu->find('list',array('fields'=>array('id','label')));
+					$this->set('status',$statu);
+					$reparator = $this->Reparator->find('all',array('fields'=>array('id','ste')));
+				
+						$rep = array(
+						''=>''
+						);
+					foreach ($reparator as $key => $value) {//debug($value);die;
+						$rep[$value['Reparator']['id']] = $value['Reparator']['ste'];
+						//debug($rep);die;
+					}
+				//	array_unshift($rep,$vide);
+					$this->set('reparators',$rep);
+					//debug($rep);die;
+					$reclam = $this->Reclamation->find('first',
+						array('conditions'=>array(
+							'Reclamation.id'=>$id
+								))
+							);
+			$rec['reclam'] = $reclam;
+			$this->set($rec);
+			//debug($reclam);die;
+			}
+		}
 		
 		
    }

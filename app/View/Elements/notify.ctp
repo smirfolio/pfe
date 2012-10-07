@@ -1,3 +1,5 @@
-<div class="btn btn-success" style="min-width: 250px"> <?php echo $message; ?> 
-	<a id="aToolTipCloseBtnc" alt="close" onclick="$(this).parent().slideUp()">close</a>
+<div class="btn btn-success" style="width: 500px ; height: 30px"> 
+	<a id="aToolTipCloseBtnc" class="close"  onclick="$(this).parent().slideUp()">x</a>
+	<p><?php echo $message; ?></p> 
+	
 	</div>

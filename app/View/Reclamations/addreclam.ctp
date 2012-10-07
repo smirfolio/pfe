@@ -7,5 +7,5 @@
     'label' => 'Type panne')); ?>
 <?php echo $this->Form->input('panne', array(
     'label' => 'Détails panne')); ?>
-<?php echo $this->Form->end('Submit'); ?>
+<?php echo $this->Form->end('Submit',array('class'=>'btn')); ?>
 </div>
