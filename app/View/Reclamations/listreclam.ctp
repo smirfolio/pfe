@@ -1,7 +1,8 @@
 <?php  
-//debug($reclam);
+//debug($reclam);  
  ?>
- 	<?php  $this->Html->scriptStart(array('inline'=>false)); ?>
+ 	<?php  $this->Html->scriptStart(array('inline'=>false)); 
+ 	?>
  $('#example').tooltip(
 	placement :'right'
 
