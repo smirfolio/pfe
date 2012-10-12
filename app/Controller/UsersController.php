@@ -30,11 +30,31 @@
 			 public function admin_listuser()
 			{
 				
-				$users = $this->User->find('all');
+				$this->paginate = array(
+						'limit' =>1 
+				
+				);
+				$users =   $this->paginate('User');
+							
+				$this->set(compact('users'));
+				
+				//$users = $this->User->find('all');
 				//$user['user'] = $users;
-				$this->set('user',$users );
-			
+				 //$this->paginate = array('User'=> array('Limit' => 1));
+				//$this->Paginate('User',array('id'=> $user['User']['id']));
+				 //$this->set($users['User']['id']);						
 			}
+			
+			
+			 function admin_delete(){
+			 	$this->Session->setFlash('Utilisateur suprimé','notify'/* paramétre du couleur du msg : , array('type'=>'warning')*/);
+				$this->User->delete($v['User']['id']);
+				//$this->User->delete($this->request->data('Users.id'));
+				$this->redirect($this->referer());
+				
+				
+				
+			 }
 
 			
 			public function admin_profile(){
