@@ -37,7 +37,8 @@
 <div id='centermessage'>
 	<div style="width:150px; margin-left:-30px; margin-top: -48px ;background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.15);">  Mr user</div>
 	<div style="width:200px; margin-left:200px; margin-top: -62px ;background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.15);"> Envoyéer Le 10/10/2012</div>
-	<div style="width:415px; margin-left:-16px; margin-top: 5px ;background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.15);"> Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br>
+	<div style="width:415px; margin-left:-16px; margin-top: 5px ;background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.15);"> Envoyéer Le 10/10/2012<br> 
+		Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br>
 		 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br>
 	</div>
 	
