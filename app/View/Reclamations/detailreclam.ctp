@@ -25,9 +25,45 @@
     <?php echo $this->element('/message/message',array('id'=>$reclam['Reclamation']['id']));  ?>
     </div>
 <div class="clearfix"></div>
-<div class='centermessagetext'>
-        
+ <?php echo $this->Form->create('Message',array('action' =>'send'));  ?>
+<div id='centermessagetext'>
+   <div id="exp">  <?php echo _('Votre Message :') ?></div>
+       <?php echo $this->Form->hidden('reclamation_id',array('value'=>$reclam['Reclamation']['id']));  ?>
+        <?php echo $this->Form->hidden('expediteur_id',array('value'=>$this->Html->iduser()));  ?>
+        <?php echo  $this->Form->textarea('msg',array('rows' => '6', 'class'=>'sizetextarea'));  ?>
+
     </div>
+    <div id='reponse'>
+        </div>
 <div style="float: right; padding-right: 200px; padding-top: 10px">
- <a class="btn btn-primary" href="#"><i class="icon-envelope icon-white"></i> <?php echo __('Envoyer') ?></a>
+ <a class="btn btn-primary" id='send'><i class="icon-envelope icon-white"></i> <?php echo __('Envoyer') ?></a>
 </div>
+</form>
+<script>
+$(function() {
+  $("#send").click(function() {
+     
+       var reclamation_id = $("#MessageSendForm [name='data[Message][reclamation_id]']").val();
+       var expediteur_id = $("#MessageSendForm [name='data[Message][expediteur_id]']").val();
+       var msg = $("#MessageSendForm [name='data[Message][msg]']").val();
+       // alert('i m cliced :'+msg+'/n'+expediteur_id+'/n'+reclamation_id);
+       var dataString = 'reclamation_id='+ reclamation_id + '&expediteur_id=' + expediteur_id + '&msg=' + msg;  
+//alert (dataString);return false;  
+//envoi du formulaire pour traitement 
+$.ajax({  
+  type: "POST",  
+  url: "/Messages/send",  
+  data: dataString,  
+  success: function() {  
+    document.getElementById("MessageSendForm").reset(); 
+  }  
+}); 
+//mise a jours de la div des messages 
+ $('.centermessage').load('/Messages/listemessagesajax/'+reclamation_id);
+         return false;
+    // $("#centermessage").load("index.html")
+  });
+
+  
+})
+    </script>
