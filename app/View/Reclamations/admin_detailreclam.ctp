@@ -33,33 +33,19 @@
 	
 </div>
 <div class="clearfix"></div>
-<h5><?php echo __('Fille des Messages') ?></h5>
-<div id='centermessage'>
-	<div style="width:150px; margin-left:-30px; margin-top: -48px ;background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.15);">  Mr user</div>
-	<div style="width:200px; margin-left:200px; margin-top: -62px ;background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.15);"> Envoyéer Le 10/10/2012</div>
-	<div style="width:415px; margin-left:-16px; margin-top: 5px ;background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.15);"> Envoyéer Le 10/10/2012<br> 
-		Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br>
-		 Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br> Envoyéer Le 10/10/2012<br>
-	</div>
-	
-</div>
-<div id='centermessage'>
-aloo <br>
-	aloo 
-	
-</div>
-
-<div id='centermessage'>
-aloo <br>
-	aloo 
-	
-</div>
-<div id='centermessage'>
-aloo <br>
-	aloo 
-	
-</div>
+<div class='centermessage'>
+    <?php echo $this->element('/message/message',array('id'=>$reclam['Reclamation']['id']));  ?>
+    </div>
 <div class="clearfix"></div>
+ <?php $this->Form->create('Message',array('action' =>'send'));  ?>
+<div id='centermessagetext'>
+   <div id="exp">  <?php echo _('Votre Message :') ?></div>
+       <?php echo $this->Form->hidden('reclamation_id',array('value'=>$reclam['Reclamation']['id']));  ?>
+        <?php echo $this->Form->hidden('expediteur_id',array('value'=>$this->Html->iduser()));  ?>
+        <?php echo  $this->Form->textarea('msg',array('rows' => '6', 'class'=>'sizetextarea'));  ?>
+
+    </div>
 <div style="float: right; padding-right: 200px; padding-top: 10px">
  <a class="btn btn-primary" href="#"><i class="icon-envelope icon-white"></i> <?php echo __('Envoyer') ?></a>
 </div>
+</form>
