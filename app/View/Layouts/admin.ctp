@@ -51,7 +51,7 @@
 DO NOT REMOVE OR MODIFY THE FOOTER LINK BELOW.
 If you want to remove this link please make a 10 dollars donation at www.dotemplate.com
 -->  
-              <a href="http://www.dotemplate.com" shape="rect">Templates</a> maker
+              <a href="http://www.sndp.com" shape="rect">SNDP</a> 2012
             </p> 
           </div> 
         </div> 

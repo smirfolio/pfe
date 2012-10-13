@@ -30,11 +30,36 @@
 			 public function admin_listuser()
 			{
 				
-				$users = $this->User->find('all');
+				$this->paginate = array(
+						'limit' =>10 
+				
+				);
+				$users =   $this->paginate('User');
+							
+				$this->set(compact('users'));
+				
+				//$users = $this->User->find('all');
 				//$user['user'] = $users;
-				$this->set('user',$users );
-			
+				 //$this->paginate = array('User'=> array('Limit' => 1));
+				// $this->Paginate('User',array('id'=> $user['User']['id']));
+				 //$this->set($users['User']['id']);						
 			}
+			
+			
+			 function admin_delete(){
+			 	
+				if ($this->User->delete($v['User']['id'])){
+					$this->Session->setFlash('Utilisateur suprimé','notify');
+						$this->redirect($this->referer());
+				}
+				//$this->User->delete($this->request->data('Users.id'));
+				
+                      else{ $this->Session->setFlash('Probleme supression','error');
+                       $this->redirect($this->referer());
+                }
+				
+				
+			 }
 
 			
 			public function admin_profile(){
@@ -44,9 +69,41 @@
 				
 			}
 
+            public function admin_desactvate($id=null){
+            			//	debug($id);die;	
+						if(isset($id))	{	
+			 	$data = array(
+			 	'id' => $id,
+			 	'etat' => 1);
+				if ( $this->User->save($data))
+				{
+					$this->Session->setFlash('Utilisateur désactivé','notify');
+						$this->redirect($this->referer());
+					}
+					else{ $this->Session->setFlash('Probleme Désactivation','error');
+                    $this->redirect($this->referer());
+                    }
+                    }
 
+}
+			public function admin_activate($id=null){
+            			//	debug($id);die;	
+						if(isset($id))	{	
+			 	$data = array(
+			 	'id' => $id,
+			 	'etat' => 0);
+				if ( $this->User->save($data))
+				{
+					$this->Session->setFlash('Utilisateur activé','notify');
+						$this->redirect($this->referer());
+					}
+					else{ $this->Session->setFlash('Probleme activation','error');
+                    $this->redirect($this->referer());
+                    }
+                    }
 
-
+}
+			
 
 
 

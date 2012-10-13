@@ -37,7 +37,7 @@
 		<?php if ($this->Html->isadmin()): ?>
 		<td><a class="btn" href="/admin/Reclamations/detailreclam/<?php echo $v['Reclamation']['id'] ?>" ><i class=" icon-eye-open"></i></a><a class="btn" href="#"><i class="icon-trash"></i></a></td>
 		<?php else: ?>
-		<td><a class="btn" href="/Reclamations/detailreclam/<?php echo $v['Reclamation']['id'] ?>" title='<?php echo __('Suspendre reclamation') ?>'><i class=" icon-eye-open"></i></a></td>
+		<td><a class="btn" href="/Reclamations/detailreclam/<?php echo $v['Reclamation']['id'] ?>" title='<?php echo __('Détails reclamation') ?>'><i class=" icon-eye-open"></i></a></td>
 		
 		<?php endif;  ?>
 	</tr>
