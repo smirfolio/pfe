@@ -16,7 +16,10 @@
 
 <div id='right'>
 	<div id='sidebar'>
-		 <a class="btn btn-danger" href="#"><i class="icon-lock icon-white"></i> <?php echo __('Suspendre Reclamation') ?></a>
+		 <?php if ($reclam['Reclamation']['statu_id']!=3 && $reclam['Reclamation']['statu_id']!=4 && $reclam['Reclamation']['statu_id']!=5): ?>
+			 <a class="btn btn-danger"  href="/Reclamations/suspreclam/<?php echo $reclam['Reclamation']['id'] ?>"><i class="icon-lock icon-white"></i> <?php echo __('Suspendre Reclamation') ?></a>
+		 <?php endif ?>
+		 
 	</div>
 	
 </div>
