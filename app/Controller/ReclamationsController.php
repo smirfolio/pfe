@@ -72,7 +72,7 @@
 		}
 		
 		public function admin_detailreclam($id=null){
-					if($this->request->is('put') || $this->request->is('post')) {
+					if(($this->request->is('put') || $this->request->is('post')) && $id!=null) {
 			//	$this->Reclamation->id = $this->request->data['Reclamation']['id'];
 				//debug($this->request->data);die;
 			/*	$data= array('id'=>$this->request->data['Reclamation']['id'],
@@ -82,13 +82,14 @@
 				'panne_id'=>$this->request->data['Reclamation']['panne_id'],
 				'panne'=>$this->request->data['Reclamation']['panne'],
 				);*/
-		//	debug($this->request->data);die;
+			debug($this->request->data);die;
 					$this->Reclamation->save($this->request->data) ;
 		 				 $this->Session->setFlash('Réclamation enregistré', 'notify');
 						 $this->redirect(array('action' => 'listreclam','admin'=>false));
 		 			
 					
 			}
+
 					
 			if(isset($id)){
 					$statu = $this->Statu->find('list',array('fields'=>array('id','label')));
@@ -115,6 +116,53 @@
 			//debug($reclam);die;
 			}
 		}
+		
+		
+		  public function admin_suspreclam($id=null)
+		{
+			
+			if(isset($id))	{	
+			 	$data = array(
+			 	'id' => $id,
+			 	'statu_id' => 5);
+			//	$this->Reclamation->save($data, $validate=false);
+				//debug($this->Reclamation->validationErrors);die;
+				//debug($data);die;
+				if ( $this->Reclamation->save($data, $validate=false))
+				{
+					$this->Session->setFlash('Réclamation annulée','notify');
+						$this->redirect($this->referer());
+					}
+					else{ $this->Session->setFlash('Probleme annulation','error');
+                    $this->redirect($this->referer());
+                    }
+                    }
+			
+			
+		}
+		 public function suspreclam($id=null)
+		{
+			
+			if(isset($id))	{	
+			 	$data = array(
+			 	'id' => $id,
+			 	'statu_id' => 5);
+			//	$this->Reclamation->save($data, $validate=false);
+				//debug($this->Reclamation->validationErrors);die;
+				//debug($data);die;
+				if ( $this->Reclamation->save($data, $validate=false))
+				{
+					$this->Session->setFlash('Réclamation annulée','notify');
+						$this->redirect('listreclam');
+					}
+					else{ $this->Session->setFlash('Probleme annulation','error');
+                    $this->redirect($this->referer());
+                    }
+                    }
+			
+			
+		}
+		
 		
 		
    }
