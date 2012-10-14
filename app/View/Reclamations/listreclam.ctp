@@ -1,13 +1,6 @@
 <?php  
 //debug($reclam);  
  ?>
- 	<?php  $this->Html->scriptStart(array('inline'=>false)); 
- 	?>
- $('#example').tooltip(
-	placement :'right'
-
-)
- <?php   $this->Html->scriptEnd(); ?>	
  <h3><?php echo __('Liste de vos réclamations') ?></h3>
 <table class="table table-striped table-bordered">
 	<thead>
