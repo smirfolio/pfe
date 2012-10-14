@@ -1,6 +1,14 @@
+<?php $nreclam = $this->requestAction('/NotifsReclamations/nbreclam'); 
+//$m= current($m);
+//debug($nreclam); die;  
+  ?>
 <div id='notif' ><i class="icon-user"></i>
 	<?php if ($this->Html->isadmin()): ?>
-	<?php echo __('Role') ?> : <?php echo $this->Html->myrole(); ?> - 	
+	<?php echo __('Role') ?> : <?php echo $this->Html->myrole(); ?> - 
+	<?php if(isset($nreclam)  && $nreclam!=0)  : ?>
+		<?php echo _('Reclamations en attentes : ') ?><a href='/Reclamations/listreclam'><span class="badge"><?php echo $nreclam ?></a></span> -
+	<?php endif ?>
+	
 	<?php endif ?>
 
 <?php echo $this->Html->nameuser(); ?> -
