@@ -27,7 +27,7 @@
 <div class="clearfix"></div>
  <?php echo $this->Form->create('Message',array('action' =>'send'));  ?>
 <div id='centermessagetext'>
-   <div id="exp">  <?php echo _('Votre Message :') ?></div>
+   <div id="exp"> <b> <?php echo _('Votre Message :') ?></b></div>
        <?php echo $this->Form->hidden('reclamation_id',array('value'=>$reclam['Reclamation']['id']));  ?>
         <?php echo $this->Form->hidden('expediteur_id',array('value'=>$this->Html->iduser()));  ?>
         <?php echo  $this->Form->textarea('msg',array('rows' => '6', 'class'=>'sizetextarea'));  ?>
