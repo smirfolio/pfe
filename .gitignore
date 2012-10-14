@@ -1,5 +1,6 @@
 /.htaccess
 /.project
+/app/tmp/
 /app/tmp/cache/models/empty
 /app/tmp/cache/models/myapp_cake_model_default_pfesndp_list
 /app/tmp/cache/models/myapp_cake_model_default_pfesndp_pannes
