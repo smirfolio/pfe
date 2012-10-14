@@ -72,7 +72,7 @@
 		}
 		
 		public function admin_detailreclam($id=null){
-					if(($this->request->is('put') || $this->request->is('post')) && $id!=null) {
+					if(($this->request->is('put') || $this->request->is('post'))) {
 			//	$this->Reclamation->id = $this->request->data['Reclamation']['id'];
 				//debug($this->request->data);die;
 			/*	$data= array('id'=>$this->request->data['Reclamation']['id'],
@@ -82,8 +82,8 @@
 				'panne_id'=>$this->request->data['Reclamation']['panne_id'],
 				'panne'=>$this->request->data['Reclamation']['panne'],
 				);*/
-			debug($this->request->data);die;
-					$this->Reclamation->save($this->request->data) ;
+			//debug($this->request->data);die;
+					$this->Reclamation->save($this->request->data,$validate=false) ;
 		 				 $this->Session->setFlash('Réclamation enregistré', 'notify');
 						 $this->redirect(array('action' => 'listreclam','admin'=>false));
 		 			
