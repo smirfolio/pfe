@@ -25,9 +25,6 @@ class Reclamation extends AppModel {
         )
     );
 	
-	
-	
-	
 	 public $belongsTo  = array(
         'Statu',
         'Panne',
@@ -37,6 +34,48 @@ class Reclamation extends AppModel {
 			'foreignKey' => 'reparator_id',
 		)
     );
+    
+    public $hasMany  = array('NotifsReclamation'=>array(
+            'conditions'=>array('NotifsReclamation.vue' =>0),
+            'fields' =>array('reclamation_id','vue','id'),
+            'limit' =>'1'
+            ));
+    
+    
+ 
+    public function afterFind($results, $primary = false){
+      if(isset($results[0]['NotifsReclamation'][0]['vue'])&& $results[0]['NotifsReclamation'][0]['vue']===false){
+               App::import('Model', 'NotifsReclamation');
+         $NotifsReclamation = new NotifsReclamation();
+        $notif = array(
+            'id'=>$results[0]['NotifsReclamation'][0]['id'],
+            'vue'=>1
+        );
+        // debug($results);die;
+        $NotifsReclamation->save($notif);
+         // debug($results);die;
+      }
+        return $results;
+    }
+
+    public function afterSave($options = array()) {
+        // debug($this->data['Reclamation']['update']);die;
+         if(empty($this->data['Reclamation']['update']) || $this->data['Reclamation']['update']!=1) {
+         App::import('Model', 'NotifsReclamation');
+         $NotifsReclamation = new NotifsReclamation();
+        $notif = array(
+            'vehicule_id'=>$this->data['Reclamation']['vehicule_id'],
+            'user_id'=>$this->data['Reclamation']['user_id'],
+            'reclamation_id'=>$this->data['Reclamation']['id'],
+            'vue'=>0
+        );
+        
+     $NotifsReclamation->addnotif($notif);
+         }
+    return true;
+}
+    
+    
 	
 
 	
