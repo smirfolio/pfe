@@ -30,6 +30,7 @@
            $this->layout = false;
            if(($this->request->is('put') || $this->request->is('post')) && (isset($this->request->data['msg']) && $this->request->data['msg']!='' )) {
                  // debug($this->request->data);die;
+                
                     if( $this->Message->save($this->request->data)) {    
               
                     }
