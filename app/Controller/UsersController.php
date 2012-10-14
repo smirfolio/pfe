@@ -103,10 +103,22 @@
                     }
 
 }
-			public function admin_edituser()
+			public function admin_detailuser( $id=null)
 			{
-				
-				
+					if(isset($id))	{	
+				//debug($id);die;
+			 	$user = $this->User->find('first',
+			array('conditions'=>array(
+				'id'=>$id
+			)
+			)
+			);
+			$use['user'] = $user;
+			$mavariable = 150;
+			
+			$this->set($use);
+			
+			}
 			}
 			
 

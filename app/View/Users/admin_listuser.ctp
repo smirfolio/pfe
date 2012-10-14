@@ -23,7 +23,7 @@
 			      	   }
 
 			?></td>
-		<td><?php echo $this->Html->link("Editer", array('action' => 'edit', $v['User']['id'] ));  ?> 
+		<td><?php echo $this->Html->link("Editer", array('action' => 'detailuser', $v['User']['id'] ));  ?> 
 			| 
 			<?php 
 
