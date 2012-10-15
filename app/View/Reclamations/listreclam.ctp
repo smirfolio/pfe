@@ -9,7 +9,7 @@
 		<th><?php echo __('Panne') ?></th>
 		<th><?php echo __('Matricule') ?></th>
 	
-		<th><?php echo __('Réparateur Ste') ?></th>
+	
 		
 		<th><?php echo __('Status') ?></th>
 		<th></th>
@@ -24,7 +24,7 @@
 		
 		<td><?php echo $v['Vehicule']['matricule']  ?></td>
 		
-		<td><?php echo $v['Reparator']['ste']  ?></td>
+	
 		
 		<td><?php echo $v['Statu']['label']  ?></td>
 		<td>
@@ -35,6 +35,11 @@
                      <span class="label label-success"><?php echo _('Vue') ?></span>
             <?php endif ?>
             <?php endif ?>
+            
+             <?php if ((isset($v['NotifsMessage'][0]) && $v['NotifsMessage'][0]['vue']===false) && $v['NotifsMessage'][0]['expediteur_id']!=$this->Html->iduser()): ?>
+                <span class="label label-important"><i class="icon-envelope icon-white"></i></span>
+            <?php endif ?>
+            
             
 		</td>
 		<td><?php echo $this->Time->format('d/M/Y',$v['Reclamation']['created']);   ?></td>

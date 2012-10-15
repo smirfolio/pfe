@@ -39,7 +39,16 @@ class Reclamation extends AppModel {
             'conditions'=>array('NotifsReclamation.vue' =>0),
             'fields' =>array('reclamation_id','vue','id'),
             'limit' =>'1'
-            ));
+            ),
+            'NotifsMessage'=>array(
+            'conditions'=>array('NotifsMessage.vue' =>0),
+            'foreignKey'    => 'reclamation_id',
+            'fields' =>array('reclamation_id','vue','id','expediteur_id'),
+            'limit' =>'1'
+            )
+            );
+            
+ 
     
     
  
@@ -55,6 +64,19 @@ class Reclamation extends AppModel {
         $NotifsReclamation->save($notif);
          // debug($results);die;
       }
+     
+   
+        if((isset($results[0]['NotifsMessage'][0]['vue'])&& $results[0]['NotifsMessage'][0]['vue']===false) && $results[0]['NotifsMessage'][0]['expediteur_id'] != $_SESSION['Auth']['User']['id']){
+               App::import('Model', 'NotifsMessage');
+         $NotifsMessage = new NotifsMessage();
+        $notifmsg = array(
+            'NotifsMessage.vue'=>1
+        );
+     //    debug($results);die;
+     $NotifsMessage->updateAll($notifmsg,array('NotifsMessage.reclamation_id' =>$results[0]['NotifsMessage'][0]['reclamation_id']));
+        //  debug($error);die;
+      }
+        
         return $results;
     }
 
