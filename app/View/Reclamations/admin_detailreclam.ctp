@@ -42,6 +42,7 @@
    <div id="exp"> <b> <?php echo _('Votre Message :') ?></b></div>
        <?php echo $this->Form->hidden('reclamation_id',array('value'=>$reclam['Reclamation']['id']));  ?>
         <?php echo $this->Form->hidden('expediteur_id',array('value'=>$this->Html->iduser()));  ?>
+        <?php echo $this->Form->hidden('destinateur_id',array('value'=>$reclam['Reclamation']['user_id']));  ?>
         <?php echo  $this->Form->textarea('msg',array('rows' => '6', 'class'=>'sizetextarea'));  ?>
 
     </div>
@@ -57,11 +58,12 @@ $(function() {
      
        var reclamation_id = $("#MessageSendForm [name='data[Message][reclamation_id]']").val();
        var expediteur_id = $("#MessageSendForm [name='data[Message][expediteur_id]']").val();
+        var destinateur_id = $("#MessageSendForm [name='data[Message][destinateur_id]']").val();
        var msg = $("#MessageSendForm [name='data[Message][msg]']").val();
         //alert('i m cliced :'+msg+'/n'+expediteur_id+'/n'+reclamation_id);
         
         
-        var dataString = 'reclamation_id='+ reclamation_id + '&expediteur_id=' + expediteur_id + '&msg=' + msg;  
+        var dataString = 'reclamation_id='+ reclamation_id + '&expediteur_id=' + expediteur_id +'&destinateur_id='+ destinateur_id  + '&msg=' + msg;  
 //alert (dataString);return false;  
 
 $.ajax({  

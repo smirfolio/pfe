@@ -30,6 +30,7 @@ class Message extends AppModel {
          $NotifsMessage = new NotifsMessage();
         $notif = array(
             'expediteur_id'=>$this->data['Message']['expediteur_id'],
+            'destinateur_id'=>$this->data['Message']['destinateur_id'],
             'message_id'=>$this->data['Message']['id'],
             'reclamation_id'=>$this->data['Message']['reclamation_id'],
             'vue'=>0

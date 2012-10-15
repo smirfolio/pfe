@@ -15,6 +15,7 @@ class NotifsMessage extends AppModel {
             if(isset($user_id)){
                $countnotif = $this->find('count',array('conditions'=>array(
                         'expediteur_id !=' => $user_id,
+                        'destinateur_id ' => $user_id,
                         'vue'=>false
                 )));
                 return $countnotif;

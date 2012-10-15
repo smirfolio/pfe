@@ -53,27 +53,33 @@ class Reclamation extends AppModel {
     
  
     public function afterFind($results, $primary = false){
-      if(isset($results[0]['NotifsReclamation'][0]['vue'])&& $results[0]['NotifsReclamation'][0]['vue']===false){
+      if((isset($results[0]['Reclamation']['upnotif']) && $results[0]['Reclamation']['upnotif']==1) &&  isset($results[0]['NotifsReclamation'][0]['vue'])&& $results[0]['NotifsReclamation'][0]['vue']===false){
                App::import('Model', 'NotifsReclamation');
          $NotifsReclamation = new NotifsReclamation();
         $notif = array(
-            'id'=>$results[0]['NotifsReclamation'][0]['id'],
+            
             'vue'=>1
         );
+        $condi = array(
+        
+        'id'=>$results[0]['NotifsReclamation'][0]['id'],
+        'user_id != '=> $_SESSION['Auth']['User']['id']
+        
+        );
         // debug($results);die;
-        $NotifsReclamation->save($notif);
+        $NotifsReclamation->updateAll($notif,$condi);
          // debug($results);die;
       }
-     
+   //  debug($results);die;
    
-        if((isset($results[0]['NotifsMessage'][0]['vue'])&& $results[0]['NotifsMessage'][0]['vue']===false) && $results[0]['NotifsMessage'][0]['expediteur_id'] != $_SESSION['Auth']['User']['id']){
+        if(((isset($results[0]['Reclamation']['upnotif']) && $results[0]['Reclamation']['upnotif']==1) && (isset($results[0]['NotifsMessage'][0]['vue']) &&$results[0]['NotifsMessage'][0]['vue']===false)) && $results[0]['NotifsMessage'][0]['expediteur_id'] != $_SESSION['Auth']['User']['id']){
                App::import('Model', 'NotifsMessage');
          $NotifsMessage = new NotifsMessage();
         $notifmsg = array(
             'NotifsMessage.vue'=>1
         );
      //    debug($results);die;
-     $NotifsMessage->updateAll($notifmsg,array('NotifsMessage.reclamation_id' =>$results[0]['NotifsMessage'][0]['reclamation_id']));
+     $NotifsMessage->updateAll($notifmsg,array('NotifsMessage.reclamation_id' => $results[0]['NotifsMessage'][0]['reclamation_id']));
         //  debug($error);die;
       }
         

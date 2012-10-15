@@ -33,6 +33,7 @@
    <div id="exp"> <b> <?php echo _('Votre Message :') ?></b></div>
        <?php echo $this->Form->hidden('reclamation_id',array('value'=>$reclam['Reclamation']['id']));  ?>
         <?php echo $this->Form->hidden('expediteur_id',array('value'=>$this->Html->iduser()));  ?>
+        <?php echo $this->Form->hidden('destinateur_id',array('value'=>5));  ?>
         <?php echo  $this->Form->textarea('msg',array('rows' => '6', 'class'=>'sizetextarea'));  ?>
 
     </div>
@@ -48,25 +49,30 @@ $(function() {
      
        var reclamation_id = $("#MessageSendForm [name='data[Message][reclamation_id]']").val();
        var expediteur_id = $("#MessageSendForm [name='data[Message][expediteur_id]']").val();
+        var destinateur_id = $("#MessageSendForm [name='data[Message][destinateur_id]']").val();
        var msg = $("#MessageSendForm [name='data[Message][msg]']").val();
-       // alert('i m cliced :'+msg+'/n'+expediteur_id+'/n'+reclamation_id);
-       var dataString = 'reclamation_id='+ reclamation_id + '&expediteur_id=' + expediteur_id + '&msg=' + msg;  
+        //alert('i m cliced :'+msg+'/n'+expediteur_id+'/n'+reclamation_id);
+        
+        
+        var dataString = 'reclamation_id='+ reclamation_id + '&expediteur_id=' + expediteur_id +'&destinateur_id='+ destinateur_id  + '&msg=' + msg;  
 //alert (dataString);return false;  
-//envoi du formulaire pour traitement 
+
 $.ajax({  
   type: "POST",  
   url: "/Messages/send",  
   data: dataString,  
   success: function() {  
-    document.getElementById("MessageSendForm").reset(); 
+  //  $('#contact_form').html("<div id='message'></div>");  
+  // $('#reponse').html("<h6>Message envoyer</h6>")  
+  // .hide()  
+   document.getElementById("MessageSendForm").reset();
   }  
-}); 
-//mise a jours de la div des messages 
+});  
  $('.centermessage').load('/Messages/listemessagesajax/'+reclamation_id);
+
          return false;
     // $("#centermessage").load("index.html")
   });
 
-  
 })
     </script>
