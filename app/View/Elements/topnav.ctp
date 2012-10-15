@@ -1,6 +1,7 @@
 <?php $nreclam = $this->requestAction('/NotifsReclamations/nbreclam'); 
+    $nremsg = $this->requestAction('/NotifsMessages/nbremsg'); 
 //$m= current($m);
-//debug($nreclam); die;  
+//debug($nremsg); die;  
   ?>
 <div id='notif' ><i class="icon-user"></i>
 	<?php if ($this->Html->isadmin()): ?>

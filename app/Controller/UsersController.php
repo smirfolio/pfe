@@ -116,15 +116,41 @@
 			$use['user'] = $user;
 			$mavariable = 150;
 			
+			
+		 
+			
+			
+			
+			
+			
 			$this->set($use);
 			
 			}
 			}
+					public function admin_edituser(){
+					 if(($this->request->is('put') || $this->request->is('post'))) {
+			 
+		                	debug($this->request->data);die;
+		 			
+				 
+			                            }
+
+					}		
+			
+		 
+			 
+					
+					
+										
+
+
+
+}			
 			
 
 
 
-   }
+    
    
    
 
