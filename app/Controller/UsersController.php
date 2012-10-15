@@ -107,33 +107,50 @@
 			{
 					if(isset($id))	{	
 				//debug($id);die;
-			 	$user = $this->User->find('first',
-			array('conditions'=>array(
-				'id'=>$id
-			)
-			)
-			);
-			$use['user'] = $user;
-			$mavariable = 150;
+			 	       $user = $this->User->find('first',
+			           array('conditions'=>array(
+				       'id'=>$id
+			   			),
+			   			'fields' => array('username','role','site_id','nom','id','mail','etat')
+			   			
+			   
+			   
+			   ));
+		              	$use['user'] = $user;
+			//$mavariable = 150;
+			            $this->set($use);
 			
-			
-		 
-			
-			
-			
-			
-			
-			$this->set($use);
-			
+			        }
 			}
-			}
+					
+					
+					
 					public function admin_edituser(){
 					 if(($this->request->is('put') || $this->request->is('post'))) {
 			 
-		                	debug($this->request->data);die;
-		 			
-				 
-			                            }
+		                	 // debug($this->request->data);die;
+						      $d = $this->request->data['User'];
+						if(isset($this->request->data['User']['password']) && $this->request->data['User']['password'] !='')	{				
+						 if($d['password'] != $d['passwordconfirm']){
+						 	$this->Session->setFlash("Les mots de passes ne correspondent pas", "error");
+							$this->redirect($this->referer());
+						   }else { $this->request->data['User']['password'] = $this->request->data['User']['passwordconfirm']; }
+						   	
+						}
+					else{  unset($this->request->data['User']['password']) ;   } 
+							 
+						//	debug($this->request->data['User'] );die; 
+							$this->User->save($this->request->data, $validate=false);
+							 
+							$this->redirect(array('action' => 'listuser'  ));
+						 
+		 			   }
+		 			   
+					  // $d = array();
+					    
+
+					
+
 
 					}		
 			

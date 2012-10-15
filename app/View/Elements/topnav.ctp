@@ -13,5 +13,9 @@
 	<?php endif ?>
 
 <?php echo $this->Html->nameuser(); ?> -
+<?php if(isset($nremsg)  && $nremsg!=0)  : ?>
+        <?php echo _('Vous Avez des messages : ') ?><a href='/Reclamations/listreclam'><span class="badge"><?php echo $nremsg ?></a></span> -
+    <?php endif ?>
 <?php echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout', 'admin'=>false))  ?>
+
 </div>
