@@ -28,5 +28,5 @@
             <?php echo $this->Form->input('mail',array('value'=>$user['User']['mail']));  ?>
            <?php echo $this->Form->input('password');  ?>
             <?php echo $this->Form->input('passwordconfirm',array('label'=>'Confirmer le mot de passe', 'type'=>'password'));  ?>
-           <?php echo $this->Form->input('etat',array('type'=>'select','value'=> $user['User']['etat']));  ?>
+           <?php echo $this->Form->input('etat',array('type'=>'checkbox','value'=> $user['User']['etat']));  ?>
              <?php echo $this->Form->end('Enregistre');  ?>

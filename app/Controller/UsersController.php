@@ -7,7 +7,7 @@
    class UsersController  extends AppController {
       
 	  
-	   
+	  public $uses = array('Site','User');
 	   		public function login() {
 	   			if ($this->request->is('post')){
 	   				if($this->Auth->login()){
@@ -112,10 +112,11 @@
 				       'id'=>$id
 			   			),
 			   			'fields' => array('username','role','site_id','nom','id','mail','etat')
-			   			
-			   
-			   
 			   ));
+			   
+			   $sites= $this->Site->find('list',array('fields'=>array('id' ,'nom')));
+			   $this->set('sites',$sites);
+			   //debug($sites);die;
 		              	$use['user'] = $user;
 			//$mavariable = 150;
 			            $this->set($use);
