@@ -85,7 +85,7 @@
 				'panne'=>$this->request->data['Reclamation']['panne'],
 				);*/
 			//debug($this->request->data);die;
-			$this->request->data['Reclamation']['update'] = 1;
+			$this->request->data['Reclamation']['update'] = 2;
 					$this->Reclamation->save($this->request->data,$validate=false) ;
 		 				 $this->Session->setFlash('Réclamation enregistré', 'notify');
 						 $this->redirect(array('action' => 'listreclam','admin'=>false));
@@ -149,6 +149,7 @@
 			if(isset($id))	{	
 			 	$data = array(
 			 	'id' => $id,
+			 	'update' =>2,
 			 	'statu_id' => 5);
 			//	$this->Reclamation->save($data, $validate=false);
 				//debug($this->Reclamation->validationErrors);die;
