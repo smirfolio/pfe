@@ -2,7 +2,7 @@
     $nremsg = $this->requestAction('/NotifsMessages/nbremsg'); 
 //$m= current($m);
 //debug($nreclam); die;  
- //debug($this->Html->isadmin());
+ debug($this->Html->isadmin());
   ?>
 <div id='notif' ><i class="icon-user"></i>
 	<?php if ($this->Html->isadmin()): ?>
@@ -22,7 +22,7 @@
       
         	 if($this->Html->isadmin() ===false): echo   
         	 
-			 
+
 			 "<a href='/Users/detailuser'/".$this->Html->iduser() ;">"
 			  ?> <a href='/Users/detailuser'/<?php echo $this->Html->iduser() ;?>>
         		
