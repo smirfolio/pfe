@@ -9,6 +9,9 @@
                     <li>
                   <a href="/admin/users/listuser/" shape="rect"><?php echo _('Admin');   ?></a>
                 </li>
+                <li>
+                  <a href="/admin/Vehicules/listvehicule/" shape="rect"><?php echo _('Véhicules');   ?></a>
+                </li>
                 <?php endif ?>
                  
               </ul> 

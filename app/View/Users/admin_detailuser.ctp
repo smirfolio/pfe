@@ -19,7 +19,7 @@
   
 ?>
 <?php echo $this->Session->flash();  ?>
-<?php echo $this->Form->create('User',array('action' =>'edituser'));  ?>
+<?php echo $this->Form->create('User',array('action' =>'admin_edituser'));  ?>
              <?php echo $this->Form->input('id',array('value'=>$user['User']['id']));  ?>
              
            <?php echo $this->Form->input('nom',array('label'=>'Nom & Prénom','value'=>$user['User']['nom']));  ?>
