@@ -8,6 +8,7 @@ class NotifsReclamation extends AppModel {
         
         if(isset($data)){
             $this->save($data);
+			 
         }
     }
     

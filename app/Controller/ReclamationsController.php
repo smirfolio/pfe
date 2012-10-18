@@ -129,9 +129,9 @@
 			 	$data = array(
 			 	'id' => $id,
 			 	'statu_id' => 5);
-			//	$this->Reclamation->save($data, $validate=false);
-				//debug($this->Reclamation->validationErrors);die;
-				//debug($data);die;
+		 
+			$this->Reclamation->save($data, $validate=false);
+			
 				if ( $this->Reclamation->save($data, $validate=false))
 				{
 					$this->Session->setFlash('Réclamation annulée','notify');
@@ -179,6 +179,7 @@
                                                                                                                                   )
                                                            )
                                               );
+											 
                                               $reclamjson = array(); 
                                               foreach ($reclam as $k => $v) {//ebug($v);die;
                                                  $reclamjson[$k]['identifiant'] = $v['Reclamation']['identifiant'];
