@@ -1,4 +1,4 @@
-<h4><?php echo __('Détail Utilisateur') ?> </h4>
+<h4><?php echo __('Détails Utilisateur'.' '.$user['User']['nom']) ?> </h4>
 
 <?php 
 
@@ -19,7 +19,7 @@
   
 ?>
 <?php echo $this->Session->flash();  ?>
-<?php echo $this->Form->create('User',array('action' =>'edituser'));  ?>
+<?php echo $this->Form->create('User',array('action' =>'admin_edituser'));  ?>
              <?php echo $this->Form->input('id',array('value'=>$user['User']['id']));  ?>
              
            <?php echo $this->Form->input('nom',array('label'=>'Nom & Prénom','value'=>$user['User']['nom']));  ?>
@@ -28,5 +28,28 @@
             <?php echo $this->Form->input('mail',array('value'=>$user['User']['mail']));  ?>
            <?php echo $this->Form->input('password');  ?>
             <?php echo $this->Form->input('passwordconfirm',array('label'=>'Confirmer le mot de passe', 'type'=>'password'));  ?>
-           <?php echo $this->Form->input('etat',array('type'=>'select','value'=> $user['User']['etat']));  ?>
+            <?php if ( $user['User']['etat']==1 )
+			{
+				echo '   Etat : <span class="label label-important">Désactivé</span>';
+				
+				echo $this->Form->input('etat', array('options' => array('0', '1') )); 
+		// echo $this->Form->input('etat',array('label'=>'Activer','hiddenField' => false,'type'=>'checkbox','value'=> $user['User']['etat'],'id'=> $user['User']['etat'] ));
+				 }
+			      else {
+
+			      	echo ' Etat : <span class="label label-success">Actif</span>' ;
+			      //	echo $this->Form->input('etat',array('type'=>'checkbox','hiddenField' => false,'value'=> $user['User']['etat']));
+			       echo $this->Form->input('etat',array('label'=>'Activer','hiddenField' => false,'type'=>'checkbox','value'=> $user['User']['etat'],'id'=> $user['User']['etat'] ));	   
+				  }
+				  ?>
+           <?php 
+           
+           
+            
+           
+           
+           
+           //echo $this->Form->input('etat',array('type'=>'checkbox','value'=> $user['User']['etat']));  ?>
+           
+             
              <?php echo $this->Form->end('Enregistre');  ?>

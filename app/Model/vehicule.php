@@ -1,5 +1,7 @@
 <?php
 class Vehicule extends AppModel {
+  public  $name='Vehicule';
+ public $belongsTo  = 'Site' ;
 
 	public function listvehicules($site){
 	    if($_SESSION['Auth']['User']['role'] =='admin'){
@@ -23,5 +25,9 @@ class Vehicule extends AppModel {
 		
 	return $listvhicule;	
 	}
+	
+	
+	
+	
 	
 }

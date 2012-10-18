@@ -1,6 +1,21 @@
 <?php  
 //debug($reclam);
  ?>
+ 
+ <div class="row">  
+<div class="span8">  
+<ul class="breadcrumb">  
+  <li>  
+    <span class="divider"> En attente  ></span>  
+  </li>  
+  <li>  
+   <span class="divider">  En cour de traitement ></span>  
+  </li>  
+  <li class="divider">Voiture en réparation ></li>  
+  <li class="divider">Voiture Réparée </li>  
+</ul>  
+</div>  
+</div>  
  <h4><?php echo __('Détail Reclamation') ?> #<?php echo $reclam['Reclamation']['identifiant'] ?></h4>
 <div id='center'>
 	<table>

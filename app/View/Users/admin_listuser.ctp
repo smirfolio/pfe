@@ -31,7 +31,7 @@
 			{
 			echo $this->Html->link(  
 			"Activer", array('action' => 'activate', $v['User']['id']), null,
-			'Voulez vous vraiment désactiver cet utilisateur ' );
+			'Voulez vous vraiment activer cet utilisateur ' );
 			}
 			else 
 				{echo $this->Html->link(  
