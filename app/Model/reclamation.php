@@ -97,10 +97,11 @@ class Reclamation extends AppModel {
     }
 
     public function afterSave($options = array()) {
-       // debug($this->data['Reclamation']);die;
-        $update = $this->data['Reclamation']['update'];
+        //debug($this->data['Reclamation']);die;
+        $update = isset($this->data['Reclamation']['update'])?$this->data['Reclamation']['update']:null;
         
-         if((empty($this->data['Reclamation']['update']))) {
+         if(empty($update) || $update=null) {//debug($this->data['Reclamation']);die;
+              
          App::import('Model', 'NotifsReclamation');
          $NotifsReclamation = new NotifsReclamation();
         $notif = array(
@@ -111,12 +112,12 @@ class Reclamation extends AppModel {
         );
         
      $NotifsReclamation->addnotif($notif);
-     $this->data['Reclamation']['update']=2;
+     $update=2;
      // Activation desactivation vheicule si reclamation crée et statur !=annulé ou réparé
          }
          
          
-     if (isset($this->data['Reclamation']['update']) && $this->data['Reclamation']['update']==2){
+     if (isset($update) && $update==2){
         //   debug($this->data);die;
          $idvehhicule = $this->find('first', array('conditions'=>array('Reclamation.id'=>$this->data['Reclamation']['id']), 'fields'=>array('Reclamation.vehicule_id')));
        $idvehhicule= current($idvehhicule);
@@ -132,7 +133,7 @@ class Reclamation extends AppModel {
         );
                $Vehicule->save($active);
          }
-         else{
+         else{  //debug($this->data['Reclamation']);die;
               $active = array(
             'id'=>$idvehhicule['vehicule_id'],
             'active'=>0

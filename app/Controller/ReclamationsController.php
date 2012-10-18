@@ -170,7 +170,7 @@
              $this->layout = false;
            $this->Reclamation->recursive = 3;
          //  $this->Reclamation->contain();
-            $reclam = $this->Reclamation->find('all',array('limit'=>10,
+            $reclam = $this->Reclamation->find('all',array('limit'=>7,
                                                            'fields'=>array('identifiant','created','user_id'),
                                                            'contain'=> array('User.nom',
                                                                              'User'=>array('Site'=>array('fields'=>array('nom'))),

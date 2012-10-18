@@ -168,7 +168,7 @@
 			           array('conditions'=>array(
 				       'User.id'=>$id
 			   			),
-			   			'fields' => array('id','username','role','site_id','nom','mail','etat')
+			   			'fields' => array('User.username','User.role','User.site_id','User.nom','User.id','User.mail','User.etat')
 			   ));
 			 //  debug($user);die;
 			  $sites= $this->Site->find('list',array('fields'=>array('id' ,'nom')));
