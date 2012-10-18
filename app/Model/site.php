@@ -6,8 +6,8 @@ class Site extends AppModel {
 		
 	public $useTable = 'sites';
 	
+	 
+   public $hasMany  = 'Vehicule' ;
+	
 	  
-	
-	
-	
 }

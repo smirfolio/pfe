@@ -5,31 +5,24 @@
     * 
     */
    class VehiculesController  extends AppController {
-      
-	  
-	   
-			 
-	   
-			 public function admin_listvehicule()
-			{
+      		public $uses = array('Panne','Vehicule','Reclamation','Statu','Reparator','Site');
 				
+				
+				 public function admin_listvehicule()
+			{
+				//$this->Vehicule->recurcive=1;
 				$this->paginate = array(
-						'limit' =>10 
+						'limit' =>10
 				
 				);
-				$vehicules =   $this->paginate('Vehicule');
+				$vehicules = $this->paginate('Vehicule');
 							
 				$this->set(compact('vehicules'));
 				
-				//$users = $this->User->find('all');
-				//$user['user'] = $users;
-				 //$this->paginate = array('User'=> array('Limit' => 1));
-				// $this->Paginate('User',array('id'=> $user['User']['id']));
-				 //$this->set($users['User']['id']);						
+			
 			}
 			
-			
-			 function admin_deletevehicule(){
+			        function admin_deletevehicule(){
 			 	
 				if ($this->Vehicule->delete($v['Vehicule']['id'])){
 					$this->Session->setFlash('Vehicule suprimé','notify');
@@ -55,18 +48,27 @@
 				//debug($id);die;
 			 	       $vehicule = $this->Vehicule->find('first',
 			           array('conditions'=>array(
-				       'id'=>$id
+				       'Vehicule.id'=>$id
 			   			),
-			   			'fields' => array('username','role','site_id','nom','id','mail','etat')
+	'fields' => array('matricule','marque','site_id','model','id','energie','puissance','date_circulation','Site.nom','Site.id')
 			   ));
 			   
-			   $sites= $this->Site->find('list',array('fields'=>array('id' ,'nom')));
-			   $this->set('sites',$sites);
+			   //debug($id);
+			 // debug($vehicule) ;die;
+			//  $sites= $this->Site->find('list',
+			  //array('conditions'=>array('id'=>$id),'fields'=>array('id' ,'nom')));
+			    
+			  
+			  //$this->set('sites',$sites);
+			    // debug($sites); 
 			   //debug($sites);die;
-		              	$use['user'] = $user;
-			//$mavariable = 150;
-			            $this->set($use);
-			
+			   
+		             	//$use['Vehicule'] = $vehicule;
+		            // methode 1$veh['vehicule'] = $vehicule;
+			         //$this->set($veh);    
+			           $sites= $this->Site->find('list',array('fields'=>array('id' ,'nom')));
+			   $this->set('sites',$sites);
+			        $this->set('vehicule',$vehicule); 
 			        }
 			}
 					
@@ -77,6 +79,9 @@
 			 
 		                	 // debug($this->request->data);die;
 						      $d = $this->request->data['Vehicule'];
+							  
+							  
+							  
 						      }
 
 

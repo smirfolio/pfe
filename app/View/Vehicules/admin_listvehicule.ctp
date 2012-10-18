@@ -1,6 +1,6 @@
 <?php 
 
-//debug($liste);die;
+ 
 
 echo $this->Session->flash();  ?>
 <table class="table table-bordered">
@@ -16,7 +16,7 @@ echo $this->Session->flash();  ?>
 		<td><?php echo $v['Vehicule']['matricule'] ?></td>
 		<td><?php echo $v['Vehicule']['marque'] ?></td>
 		<td><?php echo $v['Vehicule']['model'] ?></td>
-		<td><?php echo $v['Vehicule']['sites_id'] ?>  </td>
+		<td><?php echo $v['Site']['nom'] ?>  </td>
 	 
 		<td><?php echo $this->Html->link("Editer", array('action' => 'detailvehicule', $v['Vehicule']['id'] ));  ?> 
 			| 
