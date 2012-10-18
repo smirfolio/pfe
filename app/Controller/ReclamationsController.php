@@ -85,7 +85,7 @@
 				'panne'=>$this->request->data['Reclamation']['panne'],
 				);*/
 			//debug($this->request->data);die;
-			$this->request->data['Reclamation']['update'] = 1;
+			$this->request->data['Reclamation']['update'] = 2;
 					$this->Reclamation->save($this->request->data,$validate=false) ;
 		 				 $this->Session->setFlash('Réclamation enregistré', 'notify');
 						 $this->redirect(array('action' => 'listreclam','admin'=>false));
@@ -149,6 +149,7 @@
 			if(isset($id))	{	
 			 	$data = array(
 			 	'id' => $id,
+			 	'update' =>2,
 			 	'statu_id' => 5);
 			//	$this->Reclamation->save($data, $validate=false);
 				//debug($this->Reclamation->validationErrors);die;
@@ -165,6 +166,31 @@
 			
 			
 		}
+        public function dernierreclamadmin(){
+             $this->layout = false;
+           $this->Reclamation->recursive = 3;
+         //  $this->Reclamation->contain();
+            $reclam = $this->Reclamation->find('all',array('limit'=>10,
+                                                           'fields'=>array('identifiant','created','user_id'),
+                                                           'contain'=> array('User.nom',
+                                                                             'User'=>array('Site'=>array('fields'=>array('nom'))),
+                                                                             'Vehicule'=>array('fields'=>array('matricule'))
+                                                                                                                                  )
+                                                           )
+                                              );
+                                              $reclamjson = array(); 
+                                              foreach ($reclam as $k => $v) {//ebug($v);die;
+                                                 $reclamjson[$k]['identifiant'] = $v['Reclamation']['identifiant'];
+                                                 $reclamjson[$k]['created'] = $v['Reclamation']['created'];
+                                                  $reclamjson[$k]['usernom'] = $v['User']['nom'];
+                                                  $reclamjson[$k]['sitenom'] = $v['User']['Site']['nom'];
+                                                  $reclamjson[$k]['vehicule'] = $v['Vehicule']['matricule'];
+                                                  
+                                              }
+                                               $this->autoRender = false;   
+                                              return $reclamjson;
+           
+        }
 		
 		
 		

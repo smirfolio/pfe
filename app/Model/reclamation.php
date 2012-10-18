@@ -1,6 +1,6 @@
 <?php
 class Reclamation extends AppModel {
-
+         public $actsAs = array('Containable');
 	  public $validate = array(
 	  /*
 	  'identifiant' => array(
@@ -26,6 +26,7 @@ class Reclamation extends AppModel {
     );
 	
 	 public $belongsTo  = array(
+	    'User',
         'Statu',
         'Panne',
         'Vehicule', 
@@ -60,12 +61,21 @@ class Reclamation extends AppModel {
             
             'vue'=>1
         );
-        $condi = array(
+        
+        if( $_SESSION['Auth']['User']['role'] =='admin'){
+            
+              $condi = array(
+        'id'=>$results[0]['NotifsReclamation'][0]['id']
+        );
+        }
+        else{  $condi = array(
         
         'id'=>$results[0]['NotifsReclamation'][0]['id'],
         'user_id != '=> $_SESSION['Auth']['User']['id']
         
         );
+}
+      
         // debug($results);die;
         $NotifsReclamation->updateAll($notif,$condi);
          // debug($results);die;
@@ -87,8 +97,10 @@ class Reclamation extends AppModel {
     }
 
     public function afterSave($options = array()) {
-        // debug($this->data['Reclamation']['update']);die;
-         if(empty($this->data['Reclamation']['update']) || $this->data['Reclamation']['update']!=1) {
+       // debug($this->data['Reclamation']);die;
+        $update = $this->data['Reclamation']['update'];
+        
+         if((empty($this->data['Reclamation']['update']))) {
          App::import('Model', 'NotifsReclamation');
          $NotifsReclamation = new NotifsReclamation();
         $notif = array(
@@ -99,7 +111,38 @@ class Reclamation extends AppModel {
         );
         
      $NotifsReclamation->addnotif($notif);
+     $this->data['Reclamation']['update']=2;
+     // Activation desactivation vheicule si reclamation crée et statur !=annulé ou réparé
          }
+         
+         
+     if (isset($this->data['Reclamation']['update']) && $this->data['Reclamation']['update']==2){
+        //   debug($this->data);die;
+         $idvehhicule = $this->find('first', array('conditions'=>array('Reclamation.id'=>$this->data['Reclamation']['id']), 'fields'=>array('Reclamation.vehicule_id')));
+       $idvehhicule= current($idvehhicule);
+         $status = $this->data['Reclamation']['statu_id'];
+           App::import('Model', 'Vehicule');
+         $Vehicule = new Vehicule();
+         if($status==5 || $status == 4){
+            
+            
+        $active = array(
+            'id'=>$idvehhicule['vehicule_id'],
+            'active'=>1
+        );
+               $Vehicule->save($active);
+         }
+         else{
+              $active = array(
+            'id'=>$idvehhicule['vehicule_id'],
+            'active'=>0
+        );
+               $Vehicule->save($active);
+             
+         }
+         
+         
+     }
     return true;
 }
     

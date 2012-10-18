@@ -5,11 +5,12 @@
     <title>SNDP </title>
    <?php
 		echo $this->Html->meta('icon');
-
+        echo $this->Html->css('jqx.base');
 		echo $this->Html->css('style');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->script('bootstrap');
 		echo $this->Html->script('jquery');
+         echo $this->Html->css('sndp');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
