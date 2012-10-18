@@ -8,6 +8,7 @@
 		echo $this->Html->css('jqx.base');
 		echo $this->Html->css('style');
 		echo $this->Html->css('bootstrap');
+        echo $this->Html->css('sndp');
 		echo $this->Html->script('bootstrap');
 		
 		echo $this->Html->script('jquery');

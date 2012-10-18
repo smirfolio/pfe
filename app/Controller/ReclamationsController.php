@@ -166,6 +166,31 @@
 			
 			
 		}
+        public function dernierreclamadmin(){
+             $this->layout = false;
+           $this->Reclamation->recursive = 3;
+         //  $this->Reclamation->contain();
+            $reclam = $this->Reclamation->find('all',array('limit'=>10,
+                                                           'fields'=>array('identifiant','created','user_id'),
+                                                           'contain'=> array('User.nom',
+                                                                             'User'=>array('Site'=>array('fields'=>array('nom'))),
+                                                                             'Vehicule'=>array('fields'=>array('matricule'))
+                                                                                                                                  )
+                                                           )
+                                              );
+                                              $reclamjson = array(); 
+                                              foreach ($reclam as $k => $v) {//ebug($v);die;
+                                                 $reclamjson[$k]['identifiant'] = $v['Reclamation']['identifiant'];
+                                                 $reclamjson[$k]['created'] = $v['Reclamation']['created'];
+                                                  $reclamjson[$k]['usernom'] = $v['User']['nom'];
+                                                  $reclamjson[$k]['sitenom'] = $v['User']['Site']['nom'];
+                                                  $reclamjson[$k]['vehicule'] = $v['Vehicule']['matricule'];
+                                                  
+                                              }
+                                               $this->autoRender = false;   
+                                              return $reclamjson;
+           
+        }
 		
 		
 		

@@ -1,6 +1,6 @@
 <?php
 class Reclamation extends AppModel {
-
+         public $actsAs = array('Containable');
 	  public $validate = array(
 	  /*
 	  'identifiant' => array(
@@ -26,6 +26,7 @@ class Reclamation extends AppModel {
     );
 	
 	 public $belongsTo  = array(
+	    'User',
         'Statu',
         'Panne',
         'Vehicule', 
