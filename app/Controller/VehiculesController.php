@@ -80,7 +80,9 @@
 		                	 // debug($this->request->data);die;
 						      $d = $this->request->data['Vehicule'];
 							  
-							  
+							  $this->Vehicule->save($this->request->data, $validate=false);
+							 
+							$this->redirect(array('action' => 'listvehicule'  ));
 							  
 						      }
 
