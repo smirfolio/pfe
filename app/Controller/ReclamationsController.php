@@ -55,6 +55,7 @@
                 $this->redirect(array('action' => 'listreclam'));
                     }
                     else {
+                    	 $identifiant=$idder;
                         $this->Session->setFlash('Erreur Enregistrement', 'error');
                         }
             }

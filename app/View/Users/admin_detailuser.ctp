@@ -32,8 +32,8 @@
 			{
 				echo '   Etat : <span class="label label-important">Désactivé</span>';
 				
-				echo $this->Form->input('etat', array('options' => array('0', '1') )); 
-		// echo $this->Form->input('etat',array('label'=>'Activer','hiddenField' => false,'type'=>'checkbox','value'=> $user['User']['etat'],'id'=> $user['User']['etat'] ));
+				//echo $this->Form->input('etat', array('options' => array('0', '1') )); 
+		 echo $this->Form->input('etat',array('label'=>'Activer','hiddenField' => false,'type'=>'checkbox','value'=> $user['User']['etat'],'id'=> $user['User']['etat'] ));
 				 }
 			      else {
 
