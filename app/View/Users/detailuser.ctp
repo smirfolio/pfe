@@ -1,5 +1,5 @@
 
-<h4><?php echo __('D�tails Utilisateur'.' '.$user['User']['nom']) ?> </h4>
+<h4><?php echo __('Détails Utilisateur'.' '.$user['User']['nom']) ?> </h4>
 
  
 <?php echo $this->Session->flash();  ?>
