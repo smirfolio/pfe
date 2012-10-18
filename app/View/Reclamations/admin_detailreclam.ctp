@@ -1,5 +1,5 @@
 <?php  
-//debug($reclam);
+//debug($reclam['User']['id']);
  ?>
  <h4><?php echo __('Traitement de Reclamation') ?> #<?php echo $reclam['Reclamation']['identifiant'] ?></h4>
 <div id='center'>
@@ -18,6 +18,7 @@
 	 <tr><td><b><?php echo __('Détails Pannes') ?></b>
 	 	<?php echo $this->Form->hidden('panne_id',array('value'=>$reclam['Reclamation']['panne_id']));  ?>
 	 	<?php echo $this->Form->hidden('panne',array('value'=>$reclam['Reclamation']['panne']));  ?>
+	 	 <?php echo $this->Form->hidden('user_id',array('value'=>$reclam['User']['id']));  ?>
 	 </td><td>
 			<?php echo $reclam['Reclamation']['panne']  ?>
 			</td></tr>

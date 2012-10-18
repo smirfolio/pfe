@@ -13,7 +13,7 @@ class Vehicule extends AppModel {
 	    }
         else{
                 $liste = $this->find('all',
-        array('conditions'=>array('sites_id'=>$site,'active' =>1),
+        array('conditions'=>array('site_id'=>$site,'active' =>1),
         'fields'=>array('id','matricule','marque')
         ));
       
