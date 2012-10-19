@@ -217,6 +217,17 @@
 
 
 
+                      public function inscription(){
+					
+					    
+echo "hello";
+					
+
+
+					}		
+
+
+
 
 
 
