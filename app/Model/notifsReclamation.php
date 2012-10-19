@@ -7,6 +7,7 @@ class NotifsReclamation extends AppModel {
     public function addnotif($data=null){
         
         if(isset($data)){
+        	//debug($data);die;
             $this->save($data);
 			 
         }

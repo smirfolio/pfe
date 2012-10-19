@@ -97,7 +97,8 @@ class Reclamation extends AppModel {
     }
 
     public function afterSave($options = array()) {
-        //debug($this->data['Reclamation']);die;
+  
+       //debug(data['Reclamation']['vehicule_id']);die;
         $update = isset($this->data['Reclamation']['update'])?$this->data['Reclamation']['update']:null;
         
          if(empty($update) || $update=null) {//debug($this->data['Reclamation']);die;
@@ -111,7 +112,7 @@ class Reclamation extends AppModel {
             'vue'=>0
         );
         
-     $NotifsReclamation->addnotif($notif);
+     
      $update=2;
      // Activation desactivation vheicule si reclamation crée et statur !=annulé ou réparé
          }

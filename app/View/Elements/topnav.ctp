@@ -31,14 +31,3 @@
 <?php echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout', 'admin'=>false))  ?>
 <?php //echo $this->Html->iduser() ;?>
 </div>
-<div class="btn-group">
-	          <a class="btn" href="#">Default</a>
-	          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
-	            <li class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	          </ul>
-	        </div>
