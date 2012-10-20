@@ -52,4 +52,5 @@ class AppHelper extends Helper {
 	 	
 		return CakeSession::read('Auth.User.role');
 		 }
+	  
 }

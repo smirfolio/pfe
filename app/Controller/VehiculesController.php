@@ -7,7 +7,7 @@
    class VehiculesController  extends AppController {
       		public $uses = array('Panne','Vehicule','Reclamation','Statu','Reparator','Site');
 				
-				
+			/*	
 				 public function admin_listvehicule()
 			{
 				//$this->Vehicule->recurcive=1;
@@ -18,6 +18,28 @@
 				$vehicules = $this->paginate('Vehicule');
 							
 				$this->set(compact('vehicules'));
+				
+			
+			}
+			*/
+			 public function admin_listvehicule()
+			{
+				$this->Vehicule->recurcive=1;
+				
+				$vehicules = $this->Vehicule->find('all');
+				
+				$voiture =array();
+				foreach ($vehicules as $key => $value) {
+					$voiture[$key]['id'] =  $value['Vehicule']['id'];
+					$voiture[$key]['matricule'] =  $value['Vehicule']['matricule'];
+					$voiture[$key]['marque'] =  $value['Vehicule']['marque'];
+					$voiture[$key]['date_circulation'] =  $value['Vehicule']['date_circulation'];
+					$voiture[$key]['active'] =  $value['Vehicule']['active'];
+					$voiture[$key]['sitenom'] =  $value['Site']['nom'];
+				}
+				
+				//return json_encode($vehicules);		
+				$this->set(compact('voiture'));
 				
 			
 			}
