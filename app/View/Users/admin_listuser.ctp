@@ -23,20 +23,27 @@
 			      	   }
 
 			?></td>
-		<td><?php echo $this->Html->link("Editer", array('action' => 'detailuser', $v['User']['id'] ));  ?> 
-			| 
+		<td>
+		    <a class='btn' href="<?php echo $this->Html->url(array(
+                         'action' => 'detailuser',
+                         $v['User']['id']
+                        ));              ?>" >
+		    
+		    <i class=" icon-pencil"></i>
+		   </a>
+		
 			<?php 
 
 			if ( $v['User']['etat']==1 )
 			{
-			echo $this->Html->link(  
-			"Activer", array('action' => 'activate', $v['User']['id']), null,
-			'Voulez vous vraiment activer cet utilisateur ' );
+			echo $this->Html->link(
+			"Activer",  array('action' => 'activate', $v['User']['id']), array('class'=>'btn'),
+			'Voulez vous vraiment activer cet utilisateur ');
 			}
 			else 
 				{echo $this->Html->link(  
-			"Désactiver", array('action' => 'desactvate', $v['User']['id']), null,
-			'Voulez vous vraiment désactiver cet utilisateur ' );
+			"Désactiver",array('action' => 'desactvate', $v['User']['id']), array('class'=>'btn'),
+			'Voulez vous vraiment désactiver cet utilisateur ');
 
 			}
 			  ?>

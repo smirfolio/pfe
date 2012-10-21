@@ -171,7 +171,7 @@
 			   			'fields' => array('User.username','User.role','User.site_id','User.nom','User.id','User.mail','User.etat')
 			   ));
 			 //  debug($user);die;
-			  $sites= $this->Site->find('list',array('fields'=>array('Sid' ,'nom')));
+			  $sites= $this->Site->find('list',array('fields'=>array('id' ,'nom')));
 			   $this->set('sites',$sites);
 			   //debug($sites);die;
 		        $use['user'] = $user;

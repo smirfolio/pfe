@@ -38,6 +38,7 @@
             <!--  content -->  
             <div id="content" style="padding-top: 25px"> 
             	<h1>Admin</h1>
+            	 <?php echo $this->Session->flash(); ?>
               <?php echo $this->fetch('content'); ?>
               <div class="clear" style="height:40px"></div> 
             </div>  
