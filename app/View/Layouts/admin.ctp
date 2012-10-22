@@ -10,6 +10,7 @@
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->script('bootstrap');
 		echo $this->Html->script('jquery');
+        echo  $this -> Html -> script('jqdateformat');
          echo $this->Html->css('sndp');
 
 		echo $this->fetch('meta');

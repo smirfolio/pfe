@@ -4,6 +4,7 @@
     //  $this->Html->script('/js/jqwidgets/jquery-1.8.2.min.js', array('inline'=>false));
 
     $this -> Html -> script('/js/jqwidgets/jqxcore.js', array('inline' => false));
+   
 
     $this -> Html -> script('/js/jqwidgets/jqxbuttons.js', array('inline' => false));
     $this -> Html -> script('/js/jqwidgets/jqxscrollbar.js', array('inline' => false));
@@ -28,7 +29,9 @@
          
           $(document).ready(function () {
             var data = <?php echo json_encode($voiture)  ?>;
-           
+            
+          
+
             var source =
             {
                 localdata: data,
@@ -42,6 +45,11 @@
             var cellsrenderer2 = function (row, column, value) {
            return '<a  class="btn" href=\"/admin/Vehicules/detailvehicule/'+value+'\"><i class=\" icon-pencil\"></i></a> <!-- <a  class="btn" href=\"/admin/Vehicules/activevehicule/'+value+'\"><i class="icon-ban-circle"></a> -->';
             }
+            
+            var convdate = function (row, column, value) {
+          return  $.format.date(value, "dd/MM/yyyy");
+            }
+            
             $("#jqxgrid").jqxGrid(
             {
             	theme: 'sndp',
@@ -54,7 +62,7 @@
                 columns: [
                   { text: 'Matricule', datafield: 'matricule', width: 150 },
                   { text: 'Marque', datafield: 'marque', width: 120 },
-                  { text: 'DM Circulation', datafield: 'date_circulation', width: 180 },
+                  { text: 'DM Circulation', datafield: 'date_circulation', width: 180,cellsrenderer: convdate },
                   { text: 'En panne', datafield: 'active', width: 80, cellsalign: 'right',cellsrenderer: cellsrenderer },
                   { text: 'Site', datafield: 'sitenom', width: 120, cellsalign: 'right'   },
                    { text: 'Action', datafield: 'id', width: 130, cellsalign: 'right',cellsrenderer: cellsrenderer2  }

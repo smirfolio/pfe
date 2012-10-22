@@ -2,6 +2,43 @@
 class Vehicule extends AppModel {
     public $name = 'Vehicule';
     public $belongsTo = 'Site';
+    
+     public $validate = array(
+      /*
+      'identifiant' => array(
+                'rule'     => 'notEmpty',
+                'required' => true,
+                'message'  => 'Vous devez choisir un identifiant'
+        ), */
+        'matricule' => array(
+                'rule'     => 'notEmpty',
+                'required' => true,
+                'message'  => 'Vous devez Saisir le matricule'
+        ),
+        'site_id' => array(
+            'rule'       => 'numeric',
+            'message'    => 'Vous devez Choisir le site',
+            'required' => true,
+        ),
+        'marque' => array(
+            'rule'       => 'notEmpty',
+            'message'    => 'Vous devez choisir la marque du véhicule',
+            'required' => true,
+        ),
+        'model' => array(
+            'rule'       => 'notEmpty',
+            'message'    => 'Vous devez choisir le model du véhicule',
+            'required' => true,
+        )
+        ,
+        'date_circulation' => array(
+            'rule'       => 'notEmpty',
+            'message'    => 'Vous devez choisir la date de mise en circulation du véhicule',
+            'required' => true,
+        )
+    );
+    
+    
 
     public function listvehicules($site) {
         if ($_SESSION['Auth']['User']['role'] == 'admin') {

@@ -55,6 +55,37 @@
           // return $messages;
           // debug($messages); die;
        }
+        public function dernierremessage(){
+            
+              $this -> layout = false;
+        $this -> Message -> recursive = 2;
+        //@form:off
+        $message = $this -> Message -> find('all', array(
+            'limit' => 3, 
+            'conditions'=>array('expediteur_id !=' =>$this->iduser()),
+            'fields' => array('msg', 
+                              'created', 
+                              'expediteur_id'), 
+            'contain' => array('Userexp.nom','Userexp' => array(
+                                                'Site' => array('fields' => array('nom')))
+                               )));
+             //debug($message);die;
+        //@form:on
+        $messagejson = array();
+        foreach ($message as $k => $v) {//ebug($v);die;
+            $messagejson[$k]['expediteur'] = $v['Userexp']['nom'];
+            $messagejson[$k]['dateenvoi'] = $v['Message']['created'];
+            $messagejson[$k]['msg'] = $v['Message']['msg'];
+            $messagejson[$k]['sitenom'] = $v['Userexp']['Site']['nom'];
+        
+
+        }//debug($messagejson);die;
+        $this -> autoRender = false;
+        return $messagejson;
+            
+            
+            
+        }
        
        
             

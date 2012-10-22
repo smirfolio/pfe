@@ -42,7 +42,7 @@
         <div id="docking" style="float: left;">
             <div style="overflow: hidden;">
                 <div id="window0" style="height: 300px">
-                   <?php echo $this->element('/dashBoard/'.$url.'message') ?>
+                   <?php echo $this->element('/dashBoard/'.$url.'message'); ?>
                    
                 </div>
                 <div id="window1" style="height: 300px;">

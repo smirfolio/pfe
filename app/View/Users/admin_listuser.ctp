@@ -13,7 +13,7 @@
 		<td><?php echo $v['User']['username'] ?></td>
 		<td><?php echo $v['User']['mail'] ?></td>
 		<td><?php 
-		if ( $v['User']['etat']==1 )
+		if ( $v['User']['etat']==0 )
 			{
 				echo '<span class="label label-important">Désactivé</span>';
 				 }
@@ -34,7 +34,7 @@
 		
 			<?php 
 
-			if ( $v['User']['etat']==1 )
+			if ( $v['User']['etat']==0 )
 			{
 			echo $this->Html->link(
 			"Activer",  array('action' => 'activate', $v['User']['id']), array('class'=>'btn'),
@@ -57,3 +57,7 @@
  
 echo $this->Paginator->numbers() ; 
 ?>
+
+<div style="float: right;">
+    <a class="btn btn-primary" href="/admin/Users/detailuser" ><i class="icon-plus icon-white"></i> <?php echo __('Ajout Utilisateur') ?></a>
+</div>

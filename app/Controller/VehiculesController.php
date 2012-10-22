@@ -111,12 +111,17 @@ class VehiculesController  extends AppController {
         if (($this -> request -> is('put') || $this -> request -> is('post'))) {
             //	 debug($this->request->data);die;
 
-            if ($this -> Vehicule -> save($this -> request -> data)) {
+            if ($this -> Vehicule -> save($this->request->data)) {
                 $this -> Session -> setFlash('Véhicule enregistré', 'notify');
                 $this -> redirect(array('action' => 'listvehicule'));
 
-            } else { $this -> Session -> setFlash('Véhicule non enregistré', 'error');
-                $this -> redirect(array('action' => 'listvehicule'));
+            } else { $sites = $this -> Site -> find('list', array('fields' => array('id', 'nom')));
+        $vide = array('' => '');
+        array_unshift($sites, $vide);
+        $this -> set('sites', $sites);
+                $this->render('admin_detailvehicule');
+                 $this -> Session -> setFlash('Véhicule non enregistré', 'error');
+               
             }
         }
     }
