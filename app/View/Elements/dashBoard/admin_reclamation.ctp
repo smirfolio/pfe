@@ -40,7 +40,7 @@
     <?php   $this->Html->scriptEnd(); ?>    
  
  <div>
-    <?php echo __('Dérnieres reclamations pour admin') ?></div>
+    <?php echo __('Dérnieres reclamations') ?></div>
    
      <div id='jqxWidget' style="font-size: 9px; font-family: Verdana; float: left;">
         <div id="jqxgrid"></div>

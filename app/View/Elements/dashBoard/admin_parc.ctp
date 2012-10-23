@@ -1,6 +1,17 @@
+ <?php $stat= $this->requestAction('/Reclamations/etatparcsite');  ?>
+ <?php //debug($stat);die;  ?>
  <div>
-                        <?php echo __('Etat du parc Roulant pour admin') ?></div>
+                        <?php echo __('Etat du parc Roulant par Site') ?></div>
                     <div>
-                        Some aspects attributed to the first RISC-labeled designs around 1975 include the
-                        observations that the memory-restricted compilers of the time were often unable
-                        to take advantage...</div>
+                       <?php foreach ($stat as $key => $value): ?>
+                           
+                       
+                   <blockquote>
+                       <h5> <?php echo $value['site'];  ?></h5>
+                       <?php echo _('Pourcentage de véhicules indisponibles :')  ?> <?php echo $value['pcent'];  ?>%
+                       <small><?php echo _('Total véhicules :');  ?> <?php  echo $value['total']; ?></small>
+                       </blockquote>       
+
+<?php endforeach ?> 
+
+                    </div>

@@ -1,5 +1,7 @@
 <?php
 class Reclamation extends AppModel {
+    
+   
          public $actsAs = array('Containable');
 	  public $validate = array(
 	  /*
@@ -98,8 +100,8 @@ class Reclamation extends AppModel {
 
     public function afterSave($options = array()) {
   
-       //debug(data['Reclamation']['vehicule_id']);die;
-        $update = isset($this->data['Reclamation']['update'])?$this->data['Reclamation']['update']:null;
+     //  debug($this->data['Reclamation']['vehicule_id']);die;
+         if(isset($this->data['Reclamation']['update'])){$update=$this->data['Reclamation']['update'];}else{$update=null;};
         
          if(empty($update) || $update=null) {//debug($this->data['Reclamation']);die;
               
@@ -111,35 +113,35 @@ class Reclamation extends AppModel {
             'reclamation_id'=>$this->data['Reclamation']['id'],
             'vue'=>0
         );
-        
+        $NotifsReclamation->addnotif($notif);
      
      $update=2;
-     // Activation desactivation vheicule si reclamation crée et statur !=annulé ou réparé
+           
          }
          
-         
-     if (isset($update) && $update==2){
-        //   debug($this->data);die;
-         $idvehhicule = $this->find('first', array('conditions'=>array('Reclamation.id'=>$this->data['Reclamation']['id']), 'fields'=>array('Reclamation.vehicule_id')));
+        // debug($this->data['Reclamation']['update']);die;
+          // Activation desactivation vheicule si reclamation crée et statur !=annulé ou réparé
+     if (isset($update) && $update==2){  
+          // debug($this->data);die;
+         $idvehhicule = $this->find('first', array('conditions'=>array('Reclamation.id'=>$this->data['Reclamation']['id']), 'fields'=>array('Reclamation.vehicule_id')));//debug($idvehhicule);die;
        $idvehhicule= current($idvehhicule);
          $status = $this->data['Reclamation']['statu_id'];
            App::import('Model', 'Vehicule');
          $Vehicule = new Vehicule();
-         if($status==5 || $status == 4){
-            
-            
+         if($status==5 || $status == 4){ 
         $active = array(
             'id'=>$idvehhicule['vehicule_id'],
             'active'=>1
         );
-               $Vehicule->save($active);
+               $Vehicule->save($active, $validate = false);
          }
          else{  //debug($this->data['Reclamation']);die;
+          
               $active = array(
             'id'=>$idvehhicule['vehicule_id'],
             'active'=>0
         );
-               $Vehicule->save($active);
+               $Vehicule->save($active, $validate = false);
              
          }
          

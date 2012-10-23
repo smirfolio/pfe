@@ -1,15 +1,15 @@
  <ul>
-                <li id="current" style="border:none">
+                <li <?php if($this->request->params['controller']=='pages'){echo 'id="current"';} ?>>
                   <a href="/" shape="rect"><?php echo _('Acceuil');  ?></a>
                 </li>
-                <li>
-                  <a href="/Reclamations/listreclam" shape="rect"><?php echo _('Reclamation');   ?></a>
+                <li <?php if($this->request->params['controller']=='Reclamations'){echo 'id="current"';} ?> >
+                  <a href="/Reclamations/listreclam" shape="rect"><?php echo _('Reclamations');   ?></a>
                 </li>
                 <?php if ($this->Html->isadmin()): ?>
-                    <li>
-                  <a href="/admin/users/listuser/" shape="rect"><?php echo _('Admin');   ?></a>
+                    <li <?php if($this->request->params['controller']=='users'){echo 'id="current"';} ?>  >
+                  <a href="/admin/users/listuser/" shape="rect"><?php echo _('Utilisateurs');   ?></a>
                 </li>
-                <li>
+                <li <?php if($this->request->params['controller']=='Vehicules'){echo 'id="current"';} ?> >
                   <a href="/admin/Vehicules/listvehicule/" shape="rect"><?php echo _('Véhicules');   ?></a>
                 </li>
                 <?php endif ?>

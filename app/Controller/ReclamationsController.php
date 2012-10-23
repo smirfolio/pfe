@@ -8,6 +8,7 @@ class ReclamationsController  extends AppController {
     public $helpers = array('Html', 'Session', 'Form', 'Js');
     var $components = array('RequestHandler');
 
+  
     public function listreclam() {
         $optionstatus = $this -> Statu -> find('list', array('fields' => array('id', 'label')));
         $listpannes = $this -> Panne -> listepannes();
@@ -41,7 +42,7 @@ class ReclamationsController  extends AppController {
         }
         $rec['reclam'] = $reclam;
         $this -> set($rec);
-        //  debug($reclam);die;
+        // debug($reclam);die;
 
     }
 
@@ -74,8 +75,8 @@ class ReclamationsController  extends AppController {
 
             $listpannes = $this -> Panne -> listepannes();
             $vehicules = $this -> Vehicule -> listvehicules($this -> usersite());
-            $vide = array('' => '');
-            array_unshift($vehicules, $vide);
+            // $vide = array('' => '');
+            //  array_unshift($vehicules, $vide);
             $this -> set('identifiant', $idder);
             $this -> set('vehicules', $vehicules);
             $this -> set('pannes', $listpannes);
@@ -125,13 +126,12 @@ class ReclamationsController  extends AppController {
     public function admin_suspreclam($id = null) {
 
         if (isset($id)) {
-            $data = array('id' => $id, 'statu_id' => 5);
-
-            $this -> Reclamation -> save($data, $validate = false);
-
-            if ($this -> Reclamation -> save($data, $validate = false)) {
+            $this -> data = array('id' => $id, 'update' => 2, 'statu_id' => 5);
+            //debug($this->Reclamation->validationErrors);die;
+            //debug($data);die;
+            if ($this -> Reclamation -> save($this -> data, $validate = false)) {
                 $this -> Session -> setFlash('Réclamation annulée', 'notify');
-                $this -> redirect($this -> referer());
+                $this -> redirect('listreclam');
             } else { $this -> Session -> setFlash('Probleme annulation', 'error');
                 $this -> redirect($this -> referer());
             }
@@ -142,10 +142,10 @@ class ReclamationsController  extends AppController {
     public function suspreclam($id = null) {
 
         if (isset($id)) {
-            $data = array('id' => $id, 'update' => 2, 'statu_id' => 5);
+            $this -> data = array('id' => $id, 'update' => 2, 'statu_id' => 5);
             //debug($this->Reclamation->validationErrors);die;
             //debug($data);die;
-            if ($this -> Reclamation -> save($data, $validate = false)) {
+            if ($this -> Reclamation -> save($this -> data, $validate = false)) {
                 $this -> Session -> setFlash('Réclamation annulée', 'notify');
                 $this -> redirect('listreclam');
             } else { $this -> Session -> setFlash('Probleme annulation', 'error');
@@ -209,7 +209,7 @@ class ReclamationsController  extends AppController {
         if ($this -> RequestHandler -> isAjax()) {
             // Configure::write ( 'debug', 0 );
             $this -> autoRender = false;
-            $users = $this -> User -> find('all', array('conditions' => array('User.nom LIKE' => '%' . $_GET['term'] . '%')));
+            $users = $this -> User -> find('all', array('conditions' => array('User.username LIKE' => '%' . $_GET['term'] . '%')));
             $i = 0;
             $response = array();
             foreach ($users as $user) {
@@ -227,6 +227,31 @@ class ReclamationsController  extends AppController {
         }
 
         // debug($str);die;
+
+    }
+
+    public function etatparcsite() {
+
+        $etat = $this -> Vehicule -> find('all', array('fields' => array('Vehicule.id', 'Vehicule.site_id', 'COUNT(`Vehicule`.`id`) as nbr'), 'group' => 'site_id', 'conditions' => array('active' => false), 'contain' => array('Site' => array('fields' => array('nom')))));
+        /*
+         $etat = $this->Site->find('all',array('fields'=>array('id','nom'),
+
+         'contain'=>array('Vehicule'=>array(
+         'conditions' =>array('active'=>false),
+         'fields'=>array('id','COUNT(`Vehicule`.`id`) as nbrpanne GROUPED BY
+        `site_id`'),
+
+         )))); */
+        $statpanne = array();
+        foreach ($etat as $key => $value) {
+
+            $statpanne[$key]['total'] = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
+            $statpanne[$key]['pcent'] = ($value[0]['nbr'] * 100) / $statpanne[$key]['total'];
+            $statpanne[$key]['site'] = $value['Site']['nom'];
+        }
+        return $statpanne;
+        debug($statpanne);
+        die ;
 
     }
 

@@ -1,6 +1,9 @@
 <?php
 class Vehicule extends AppModel {
     public $name = 'Vehicule';
+    
+     public $actsAs = array('Containable');
+    
     public $belongsTo = 'Site';
     
      public $validate = array(

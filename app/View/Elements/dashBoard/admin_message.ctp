@@ -1,7 +1,7 @@
  <?php $dermessage= $this->requestAction('/Messages/dernierremessage');  ?>
  <?php //debug($dermessage);die;  ?>
 <div>
-                       <?php echo __('Dérniers messages pour admin') ?>m</div>
+                       <?php echo __('Dérniers messages') ?>m</div>
                     <div>
                         
                         <?php foreach ($dermessage as $key => $value): ?>
