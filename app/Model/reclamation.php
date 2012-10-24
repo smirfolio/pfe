@@ -82,7 +82,7 @@ class Reclamation extends AppModel {
         $NotifsReclamation->updateAll($notif,$condi);
          // debug($results);die;
       }
-   //  debug($results);die;
+    //debug($results);die;
    
         if(((isset($results[0]['Reclamation']['upnotif']) && $results[0]['Reclamation']['upnotif']==1) && (isset($results[0]['NotifsMessage'][0]['vue']) &&$results[0]['NotifsMessage'][0]['vue']===false)) && $results[0]['NotifsMessage'][0]['expediteur_id'] != $_SESSION['Auth']['User']['id']){
                App::import('Model', 'NotifsMessage');

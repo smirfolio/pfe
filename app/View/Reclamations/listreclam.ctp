@@ -15,6 +15,7 @@ $this -> Html -> script('/js/jqwidgets/jqxlistbox.js', array('inline' => false))
 $this -> Html -> script('/js/jqwidgets/jqxdropdownlist.js', array('inline' => false));
 $this -> Html -> script('/js/jqwidgets/jqxgrid.js', array('inline' => false));
 $this -> Html -> script('/js/jqwidgets/jqxgrid.sort.js', array('inline' => false));
+$this -> Html -> script('/js/jqwidgets/jqxgrid.columnsresize.js', array('inline' => false));
 $this -> Html -> script('/js/jqwidgets/jqxgrid.pager.js', array('inline' => false));
 $this -> Html -> script('/js/jqwidgets/jqxdata.js', array('inline' => false));
 $this -> Html -> script('/js/jqwidgets/jqxgrid.selection.js', array('inline' => false));
@@ -98,6 +99,12 @@ var role = <?php $role = $this -> Html -> isadmin();
     if (isset($role) && $role != false) { echo $this -> Html -> isadmin();
     } else {echo 0;
     }
+    ?>;
+    var iduser = <?php $iduser = $this -> Html -> iduser();
+    if (isset($iduser) && $iduser != false) { echo $this -> Html -> iduser();
+    } else {echo null;
+    }
+    
   ?>;
 //console.log(role);
 var source =
@@ -105,11 +112,28 @@ var source =
 localdata: data,
 datatype: "array"
 };
+
 var vuestat = function (row, column, value) {
+    if (role ==1){
 if (value===false)
 {  return ' <span class="label label-important"><?php echo _('Nom') ?></span>';}
-else {return ' <span class="label label-success"><?php echo _('Oui') ?></span>';}
+else {return ' <span class="label label-success"><?php echo _('Oui') ?></span>';}}
+
+
 };
+var msgstat = function (row, column, value) {console.log(value);
+if (value!='')
+    if(value!=iduser){
+{  return '<span class="label label-important"><i class="icon-envelope icon-white"></i></span>';}}
+else {return '';}
+
+
+};
+
+ var convdate = function (row, column, value) {
+          return  $.format.date(value, "dd/MM/yyyy");
+            }
+            
 
 var editaction = function (row, column, value) {
 if (role ==1){
@@ -127,6 +151,7 @@ source: source,
 theme: 'sndp',
 pageable: true,
 sortable: true,
+columnsresize: true,
 columns: [
 { text: 'Id Reclam', datafield: 'identifiant',width: 75},
 { text: 'Réclamateur', datafield: 'reclamateur',width: 155},
@@ -134,12 +159,16 @@ columns: [
 { text: 'Matricule', datafield: 'vehimatricul',width: 100},
 { text: 'Status', datafield: 'status',width: 100},
 { text: 'Vue', datafield: 'vue',width: 40,cellsrenderer: vuestat},
-{ text: 'Créer le', datafield: 'reclamdate',width: 105},
+{ text: 'Msg', datafield: 'msg',width: 25,cellsrenderer: msgstat},
+{ text: 'Créer le', datafield: 'reclamdate',width: 105,cellsrenderer:convdate},
 { text: 'Action', datafield: 'reclamid',width: 95,cellsrenderer: editaction}
 
 ]
 });
+
 });
+
+     
 
 // Expander tab
 $(document).ready(function () {

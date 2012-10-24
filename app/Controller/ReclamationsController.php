@@ -39,7 +39,7 @@ class ReclamationsController  extends AppController {
                                                             'contain' => array('User.nom', 
                                                                                'User' => array('Site' => array('fields' => array('nom'))), 
                                                                                'Vehicule' => array('fields' => array('matricule'))))));
-        //Debug($reclam);die;
+       // Debug($reclam);die;
         $reclamjeson =array();
         foreach ($reclam as $key => $value) {
             $reclamjeson[$key]['identifiant'] = $value['Reclamation']['identifiant'];
@@ -50,6 +50,8 @@ class ReclamationsController  extends AppController {
             $reclamjeson[$key]['reclamdate'] = $value['Reclamation']['created'];
             $reclamjeson[$key]['reclamid'] = $value['Reclamation']['id'];
             $reclamjeson[$key]['vue'] = isset($value['NotifsReclamation'][0]['vue'])?$value['NotifsReclamation'][0]['vue']:'';
+           // $reclamjeson[$key]['msg'] = isset($value['NotifsMessage'][0]['vue'])?$value['NotifsMessage'][0]['vue']:'';
+             $reclamjeson[$key]['msg'] =isset($value['NotifsMessage'][0]['expediteur_id'])?$value['NotifsMessage'][0]['expediteur_id']:'';
         }
         $nbrreclam = count($reclam);
         if ($nbrreclam != 0 && ($this -> request -> is('put') || $this -> request -> is('post'))) {   $this -> Session -> setFlash("$nbrreclam  Reclamation(s) retrouvée(s) ", 'warninginfo');
