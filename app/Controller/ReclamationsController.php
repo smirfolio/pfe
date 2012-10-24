@@ -12,17 +12,16 @@ class ReclamationsController  extends AppController {
     public function listreclam() {
         $optionstatus = $this -> Statu -> find('list', array('fields' => array('id', 'label')));
         $listpannes = $this -> Panne -> listepannes();
-        $sites = $this -> Site -> find('list', array('fields' => array('id', 'nom')));
-        $vide = array('' => '');
-        array_unshift($sites, $vide);
-        $this -> set('sites', $sites);
+        $siteslist = $this -> Site -> find('list', array('fields' => array('id', 'nom')));
+     
+        $this -> set('siteslist', $siteslist);
         $this -> set('status', $optionstatus);
         $this -> set('pannes', $listpannes);
 
         $condition = array();
         if (($this -> request -> is('put') || $this -> request -> is('post'))) {
             $condition = $this -> querycond($this -> request['data']['Reclamation']);
-            // debug($condition);
+             //debug($condition);die;
         }
 
         $id = $this -> iduser();
@@ -35,12 +34,32 @@ class ReclamationsController  extends AppController {
 
         //debug($condition);die;
         $this -> Reclamation -> recursive = 2;
-        $reclam = $this -> Reclamation -> find('all', array('conditions' => $condition, array('fields' => array('identifiant', 'created', 'user_id'), 'contain' => array('User.nom', 'User' => array('Site' => array('fields' => array('nom'))), 'Vehicule' => array('fields' => array('matricule'))))));
+        $reclam = $this -> Reclamation -> find('all', array('conditions' => $condition, 
+                                                            array('fields' => array('identifiant', 'created', 'user_id'), 
+                                                            'contain' => array('User.nom', 
+                                                                               'User' => array('Site' => array('fields' => array('nom'))), 
+                                                                               'Vehicule' => array('fields' => array('matricule'))))));
+        //Debug($reclam);die;
+        $reclamjeson =array();
+        foreach ($reclam as $key => $value) {
+            $reclamjeson[$key]['identifiant'] = $value['Reclamation']['identifiant'];
+            $reclamjeson[$key]['reclamateur'] = $value['User']['nom'];
+            $reclamjeson[$key]['panne'] = $value['Panne']['label'];
+            $reclamjeson[$key]['status'] = $value['Statu']['label'];
+            $reclamjeson[$key]['vehimatricul'] = $value['Vehicule']['matricule'];
+            $reclamjeson[$key]['reclamdate'] = $value['Reclamation']['created'];
+            $reclamjeson[$key]['reclamid'] = $value['Reclamation']['id'];
+            $reclamjeson[$key]['vue'] = isset($value['NotifsReclamation'][0]['vue'])?$value['NotifsReclamation'][0]['vue']:'';
+        }
         $nbrreclam = count($reclam);
         if ($nbrreclam != 0 && ($this -> request -> is('put') || $this -> request -> is('post'))) {   $this -> Session -> setFlash("$nbrreclam  Reclamation(s) retrouvée(s) ", 'warninginfo');
         } elseif ($nbrreclam == 0) { $this -> Session -> setFlash("Pas de résultats pour cette recherche !", 'warning');
         }
-        $rec['reclam'] = $reclam;
+        
+        $site = $this->etatparcsite();
+        $sit['sites'] = $site;
+        $this -> set($sit);
+        $rec['reclam'] = $reclamjeson;
         $this -> set($rec);
         // debug($reclam);die;
 
@@ -185,6 +204,24 @@ class ReclamationsController  extends AppController {
 
     public function querycond($params) {//debug($params);die;
         $conditions = array();
+        if (isset($params) && @$params['datedeb'] != '' && empty($params['datefin'])) {
+            $lengh=strlen($params['datedeb']);
+            $datedeb =substr_replace($params['datedeb'], '23:00:00', 11, $lengh);//debug($params['datedeb']); debug($datedeb);die;
+            $conditions += array('Reclamation.created >=' => $datedeb);
+        }
+         if (isset($params) && @$params['datefin'] != '' && empty($params['datedeb'])) {
+              $lengh=strlen($params['datefin']);
+            $datefin =substr_replace($params['datefin'], '23:00:00', 11, $lengh);//debug($params['datefin']); debug($datefin);die;
+            $conditions += array('Reclamation.created <=' => $datefin);
+        }
+         
+         if (isset($params) && @$params['datefin'] != '' && @$params['datedeb']!='') {
+             $lengh=strlen($params['datedeb']);
+            $datedeb =substr_replace($params['datedeb'], '23:00:00', 11, $lengh);
+            $lengh=strlen($params['datefin']);
+            $datefin =substr_replace($params['datefin'], '23:00:00', 11, $lengh);
+            $conditions += array('Reclamation.created BETWEEN ? AND ?' => array($datedeb,$datefin));
+        }
         if (isset($params) && @$params['status'] != '') {
             $conditions += array('Reclamation.statu_id' => $params['status']);
         }
@@ -192,7 +229,7 @@ class ReclamationsController  extends AppController {
         if (isset($params) && @$params['panne'] != '') {
             $conditions += array('Reclamation.panne_id' => $params['panne']);
         }
-        if (isset($params) && @$params['user'] != '') {
+        if (isset($params) && @$params['user'] != '' && isset($params) && @$params['user']!='Recherche utilisateur..') {
             $conditions += array('Reclamation.user_id' => $params['user']);
         }
 
@@ -245,13 +282,15 @@ class ReclamationsController  extends AppController {
         $statpanne = array();
         foreach ($etat as $key => $value) {
 
-            $statpanne[$key]['total'] = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
-            $statpanne[$key]['pcent'] = ($value[0]['nbr'] * 100) / $statpanne[$key]['total'];
-            $statpanne[$key]['site'] = $value['Site']['nom'];
+            $statpanne[$key]['totalvehicule'] = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
+            $statpanne[$key]['nbrpanne'] = $value[0]['nbr'];
+            $statpanne[$key]['pcent'] = ($value[0]['nbr'] * 100) / $statpanne[$key]['totalvehicule'];
+            $statpanne[$key]['sites'] = $value['Site']['nom'];
+            $statpanne[$key]['nbrvalide'] = $statpanne[$key]['totalvehicule']- $value[0]['nbr'];
         }
         return $statpanne;
-        debug($statpanne);
-        die ;
+        //debug($statpanne);
+        //die ;
 
     }
 

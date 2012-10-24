@@ -6,13 +6,13 @@
 <div class="span8">  
 <ul class="breadcrumb">  
   <li>  
-    <span class="divider"> En attente  ></span>  
+    <span <?php if($reclam['Reclamation']['statu_id'] >= 1 && $reclam['Reclamation']['statu_id']!=5) {echo 'class="active alert-error"';}else{echo 'class="divider"';} ?> > En attente  ></span>  
   </li>  
   <li>  
-   <span class="divider">  En cour de traitement ></span>  
+   <span <?php if($reclam['Reclamation']['statu_id']>=2  && $reclam['Reclamation']['statu_id']!=5) {echo 'class="active alert-error"';}else{echo 'class="divider"';} ?> >  En cour de traitement ></span>  
   </li>  
-  <li class="divider">Voiture en réparation ></li>  
-  <li class="divider">Voiture Réparée </li>  
+  <li <?php if($reclam['Reclamation']['statu_id']>=3  && $reclam['Reclamation']['statu_id']!=5) {echo 'class="active alert-error"';}else{echo 'class="divider"';} ?> >Voiture en réparation ></li>  
+  <li <?php if($reclam['Reclamation']['statu_id'] >=4  && $reclam['Reclamation']['statu_id']!=5) {echo 'class="active alert-error"';}else{echo 'class="divider"';} ?> >Voiture Réparée </li>  
 </ul>  
 </div>  
 </div>  

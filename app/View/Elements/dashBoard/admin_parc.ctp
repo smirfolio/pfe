@@ -7,9 +7,9 @@
                            
                        
                    <blockquote>
-                       <h5> <?php echo $value['site'];  ?></h5>
+                       <h5> <?php echo $value['sites'];  ?></h5>
                        <?php echo _('Pourcentage de véhicules indisponibles :')  ?> <?php echo $value['pcent'];  ?>%
-                       <small><?php echo _('Total véhicules :');  ?> <?php  echo $value['total']; ?></small>
+                       <small><?php echo _('Total véhicules :');  ?> <?php  echo $value['totalvehicule']; ?></small>
                        </blockquote>       
 
 <?php endforeach ?> 
