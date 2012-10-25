@@ -20,7 +20,7 @@
   <body> 
   	 
   	 	 	   
-  	<div id="login"> <h1>Déclaration des Pannes Véhicules S.N.D.P</h1> <!-- #login_panel -->	
+  	<div id="login"> <h1><?php echo _('Déclaration des Pannes Véhicules S.N.D.P')  ?></h1> <!-- #login_panel -->	
   		 <?php echo $this->Html->image('logosndp.png', array('class'=>'img-rounded','alt' => 'AGIL'));  ?>
   		 
   		 <?php echo $this->Session->flash(); ?>

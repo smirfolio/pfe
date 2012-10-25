@@ -7,7 +7,10 @@ class UsersController  extends AppController {
 
     public $uses = array('Site', 'User');
     public function login() {
-        $this->Auth->autoRedirect =false;
+       // $this->Auth->autoRedirect =false;
+      //  debug($this->Session->read('Auth.redirect'));
+        if($this->Session->read('Auth')!='/'){$this->Session->write('Auth.redirect','/');}
+       //  debug($this->Session->read('Auth'));
         if ($this -> request -> is('post')) {
             if ($this -> Auth -> login()) {
                //debug($this->Session->read());
