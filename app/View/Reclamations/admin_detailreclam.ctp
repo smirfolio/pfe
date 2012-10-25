@@ -24,7 +24,9 @@
 			</td></tr>
 			
 	</table>
- <?php echo $this->Form->end('Submit',array('class'=>'btn')); ?>
+	 
+ <?php echo $this->Form->end(array('label'=>'Enregistrer','div'=>false, 'class'=>'btn btn-primary')); ?>
+ 
 </div>
 
 <div id='right'>
@@ -51,6 +53,7 @@
         </div>
 <div style="float: right; padding-right: 200px; padding-top: 10px">
  <a class="btn btn-primary" id='send'><i class="icon-envelope icon-white"></i> <?php echo __('Envoyer') ?></a>
+  <?php echo $this->Html->link('Imprimer', array('controller'=>'Reclamations', 'action'=>'admin_viewpdf',$id= $reclam['Reclamation']['id']))  ?>
 </div>
 </form>
 <script>

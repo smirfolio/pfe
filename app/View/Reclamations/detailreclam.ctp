@@ -24,9 +24,20 @@
 		<tr><td><b><?php echo __('Status') ?></b></td><td><?php echo $reclam['Statu']['label'] ?></td></tr>
 		<tr><td><b><?php echo __('Panne') ?></b></td><td><?php echo $reclam['Panne']['label'] ?></td></tr>
 		<tr><td><b><?php echo __('Vehicule') ?> </b><br><br><br></td><td><?php echo $reclam['Vehicule']['matricule'] ?><br><?php echo $reclam['Vehicule']['marque'] ?><br><?php echo $reclam['Vehicule']['model'] ?><br></td></tr>
-		<tr><td><b><?php echo __('Réparateur') ?></b><br><br><br><br></td><td><small><?php echo __('Ste') ?> : </small><?php echo $reclam['Reparator']['ste'] ?><br><small><?php echo __('Nom du Contact') ?> : </small><?php echo $reclam['Reparator']['nom_contact'] ?><br><small><?php echo __('Mail') ?> : </small><?php echo $reclam['Reparator']['mail'] ?><br><small><?php echo __('Tel') ?> : </small><?php echo $reclam['Reparator']['tel'] ?><br></td></tr>
-	</table>
+				<?php
+				
+				
+if ($reclam['Reparator']['id']== null) {
+			
+		echo '</table>'; }
+		 
  
+ else { ?>
+ 	<tr><td><b><?php echo __('Réparateur') ?></b><br><br><br><br></td><td><small><?php echo __('Ste') ?> : </small><?php echo $reclam['Reparator']['ste'] ?><br><small><?php echo __('Nom du Contact') ?> : </small><?php echo $reclam['Reparator']['nom_contact'] ?><br><small><?php echo __('Mail') ?> : </small><?php echo $reclam['Reparator']['mail'] ?><br><small><?php echo __('Tel') ?> : </small><?php echo $reclam['Reparator']['tel'] ?><br></td></tr>
+	</table>
+			
+	<?php	}
+		?>
 </div>
 
 <div id='right'>

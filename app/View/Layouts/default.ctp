@@ -2,7 +2,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
+  	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>SNDP </title>
+    
    <?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('jqx.base');
@@ -17,7 +19,7 @@
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
-	
+
   </head>
   <body> 
     <div id="wrapper"> 

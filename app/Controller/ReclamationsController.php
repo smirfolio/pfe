@@ -295,6 +295,22 @@ class ReclamationsController  extends AppController {
         //die ;
 
     }
+                      
+public function admin_viewpdf($id = null) 
+    {
+    	//debug($id);die;
+if (!$id) {
+$this->Session->setFlash('Sorry, there was no PDF selected.');
+$this->redirect(array('action'=>'listreclam'), null, true);
+}
+$reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
+        $rec['reclam'] = $reclam;
+        $this -> set($rec);
+		//debug($id);die;
+ // $pdf-> process (Router :: url ('/ admin /', true) ); 
+$this->layout = 'pdf'; //this will use the pdf.ctp layout
+$this->render();
+}
 
 }
 ?>

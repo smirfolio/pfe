@@ -4,7 +4,10 @@
 //debug($nreclam); die;  
  //debug($this->Html->isadmin());
   ?>
-<div id='notif' ><i class="icon-user"></i>
+<div id='notif' class="navbar" style="width:810px" >
+	<div class="navbar-inner">
+	 <div class="container">
+	<i class="icon-user"></i>
 	<?php if ($this->Html->isadmin()): ?>
 	<?php echo __('Role') ?> : <?php echo $this->Html->myrole(); ?> - 
 	<?php if(isset($nreclam)  && $nreclam != 0)  : ?>
@@ -30,4 +33,6 @@
         <?php endif ?>
 <?php echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout', 'admin'=>false))  ?>
 <?php //echo $this->Html->iduser() ;?>
+</div>
+</div>
 </div>

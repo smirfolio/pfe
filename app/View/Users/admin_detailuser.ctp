@@ -30,7 +30,7 @@
 // $user['User']['etat']));
 ?>
 
-<?php echo $this -> Form -> end('Enregistre'); ?>
+<?php echo $this -> Form -> end(array('label'=>'Enregistrer','div'=>false, 'class'=>'btn btn-primary')); ?>
 
 <?php else: ?>
 	
