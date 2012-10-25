@@ -7,10 +7,12 @@ class UsersController  extends AppController {
 
     public $uses = array('Site', 'User');
     public function login() {
+        $this->Auth->autoRedirect =false;
         if ($this -> request -> is('post')) {
             if ($this -> Auth -> login()) {
-                //debug($this->Session->read());die;
-                return $this -> redirect($this -> Auth -> redirect());
+               //debug($this->Session->read());
+                //debug($this->Auth); die;
+                return $this->redirect($this->Auth->redirect());
             } else {
                 $this -> Session -> setFlash('Votre login ou votre mot de passe est incorect', 'error');
             }
