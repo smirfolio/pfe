@@ -1,5 +1,6 @@
-<?php $nreclam = $this->requestAction('/NotifsReclamations/nbreclam'); 
-    $nremsg = $this->requestAction('/NotifsMessages/nbremsg'); 
+<?php 
+    $nremsg = $this->requestAction('/NotifsMessages/nbremsg/'); 
+    $nreclam = $this->requestAction('/NotifsReclamations/nbreclam/'); 
 //$m= current($m);
 //debug($nreclam); die;  
  //debug($this->Html->isadmin());
