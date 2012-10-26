@@ -3,7 +3,7 @@
 //debug($m); die;
 
   ?>
-<h5><?php echo __('Fille des Messages') ?></h5>
+<h5><?php echo __('File des Messages') ?></h5>
     <?php foreach ($m as $key => $value):  ?>
         <?php //debug($value);die;  ?>
         <div id='centermessage'>

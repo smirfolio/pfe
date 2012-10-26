@@ -30,8 +30,8 @@
 </div>
 
 <div id='right'>
-	<div id='sidebar'>
-	<!--	 <a class="btn btn-danger" href="#"><i class="icon-lock icon-white"></i> <?php echo __('Suspendre Reclamation') ?></a> -->
+	<div id='sidebar'><?php  $imp=$this->Html->link('Imprimer', array('controller'=>'Reclamations', 'action'=>'admin_viewpdf',$id= $reclam['Reclamation']['id']))  	?>
+	 	 <span class="btn btn-danger"  ><i class=" icon-print"></i> <?php echo $imp;  ?></span>  
 	</div>
 	
 </div>
@@ -53,7 +53,7 @@
         </div>
 <div style="float: right; padding-right: 200px; padding-top: 10px">
  <a class="btn btn-primary" id='send'><i class="icon-envelope icon-white"></i> <?php echo __('Envoyer') ?></a>
-  <?php echo $this->Html->link('Imprimer', array('controller'=>'Reclamations', 'action'=>'admin_viewpdf',$id= $reclam['Reclamation']['id']))  ?>
+  
 </div>
 </form>
 <script>

@@ -48,7 +48,8 @@ class Reclamation extends AppModel {
             'foreignKey'    => 'reclamation_id',
             'fields' =>array('reclamation_id','vue','id','expediteur_id'),
             'limit' =>'1'
-            )
+            ),
+            'Message'
             );
             
  

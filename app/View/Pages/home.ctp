@@ -35,14 +35,15 @@
         
    
         
-	<?php   $this->Html->scriptEnd(); ?>	
+	<?php  
+	 $this->Html->scriptEnd(); ?>	
 	
-<h3><?php echo __('DashBoard') ?></h3>
+<h3><?php echo __('Tableau de bord') ?></h3>
  <div id='jqxWidget'>
         <div id="docking" style="float: left;">
             <div style="overflow: hidden;">
                 <div id="window0" style="height: 300px">
-                   <?php echo $this->element('/dashBoard/'.$url.'message'); ?>
+                   <?php echo $this->element('/dashBoard/'.$url.'message');  ?>
                    
                 </div>
                 <div id="window1" style="height: 300px;">

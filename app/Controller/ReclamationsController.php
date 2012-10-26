@@ -4,7 +4,7 @@
  *
  */
 class ReclamationsController  extends AppController {
-    public $uses = array('Panne', 'Vehicule', 'Reclamation', 'Statu', 'Reparator', 'NotifsReclamation', 'Site', 'User');
+    public $uses = array('Message','Panne', 'Vehicule', 'Reclamation', 'Statu', 'Reparator', 'NotifsReclamation', 'Site', 'User');
     public $helpers = array('Html', 'Session', 'Form', 'Js');
     var $components = array('RequestHandler');
 
@@ -311,6 +311,48 @@ $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Rec
 $this->layout = 'pdf'; //this will use the pdf.ctp layout
 $this->render();
 }
+
+ public function userdernierremessage(){
+            
+              $this -> layout = false;
+        $this -> Reclamation -> recursive = 3;
+	//	 debug($message);die; 
+        //@form:off
+        $reclam = $this ->  Reclamation -> find('all', array('conditions'=>array('user_id'=>$this->iduser()),
+        
+          //  'limit' => 3, 
+            
+            'fields' => array('id', 
+                              'User_id','identifiant'), 
+            'contain' => array(
+            'User'=>array('fields'=>array('nom')),
+            
+            'Message'=>array('Userexp'=>array('fields'=>array('nom')),'limit' =>2,'fields'=>array('msg','expediteur_id','created'))
+                               )));
+          //debug($reclam);die;
+        //@form:on
+        $messagejson = array();
+		$item =0;
+        foreach ($reclam as $k => $v) {//debug($v);
+        	
+			
+			foreach ($v['Message'] as $key => $value) {//debug($v);
+				//debug($value);die;
+			$messagejson[$item]['identifiant'] = $v ['Reclamation']['identifiant'];
+            //$messagejson[$item]['expediteur'] = $v['User']['nom'];
+        	$messagejson[$item]['expediteur'] = $value['Userexp']['nom'];
+            $messagejson[$item]['dateenvoi'] = $value['created'];
+            $messagejson[$item]['msg'] = $value['msg'];
+            $item++;
+			}
+		
+        }//debug($messagejson);die;
+        $this -> autoRender = false;
+        return $messagejson;
+            
+            
+           //   debug($message);die; 
+        }
 
 }
 ?>
