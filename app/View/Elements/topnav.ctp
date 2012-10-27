@@ -6,7 +6,7 @@
  //debug($this->Html->isadmin());
   ?>
 
-
+    
 	 <div class="container">
 	<i class="icon-user"></i>
 	<?php if ($this->Html->isadmin()): ?>
