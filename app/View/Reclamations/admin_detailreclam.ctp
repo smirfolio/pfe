@@ -31,7 +31,8 @@
 
 <div id='right'>
 	<div id='sidebar'><?php  $imp=$this->Html->link('Imprimer', array('controller'=>'Reclamations', 'action'=>'admin_viewpdf',$id= $reclam['Reclamation']['id']))  	?>
-	 	 <span class="btn btn-danger"  ><i class=" icon-print"></i> <?php echo $imp;  ?></span>  
+	 	 <span class="btn btn-success"  ><i class=" icon-print icon-white"></i> <?php echo $imp;  ?></span>  
+	 	<!-- <a class="btn btn-success"  href="/Reclamations/admin_viewpdf/<?php //echo $id ?>"><i class=" icon-print icon-white"></i> </a>-->
 	</div>
 	
 </div>

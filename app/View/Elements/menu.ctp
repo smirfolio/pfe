@@ -12,6 +12,12 @@
                 <li <?php if($this->request->params['controller']=='Vehicules'){echo 'id="current"';} ?> >
                   <a href="/admin/Vehicules/listvehicule/" shape="rect"><?php echo _('Véhicules');   ?></a>
                 </li>
+                <li <?php if($this->request->params['controller']=='Reparators'){echo 'id="current"';} ?> >
+                  <a href="/admin/Vehicules/listvehicule/" shape="rect"><?php echo _('Reparateurs');   ?></a>
+                </li>
+                 <li <?php if($this->request->params['controller']=='Sites'){echo 'id="current"';} ?> >
+                  <a href="/admin/Vehicules/listvehicule/" shape="rect"><?php echo _('Sites');   ?></a>
+                </li>
                 <?php endif ?>
                  
               </ul> 
