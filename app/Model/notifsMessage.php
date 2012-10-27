@@ -3,7 +3,13 @@ class NotifsMessage extends AppModel {
     
             var $name = 'NotifsMessage';
             var $useTable = 'notifs_messages';
-
+   /*  public $belongsTo  = 'Message'array(
+       
+        'Message'=>array(
+            'className' => 'Message',
+            'foreignKey' => 'message_id',
+        )
+    );*/
     public function addnotif($data=null){
         
         if(isset($data)){

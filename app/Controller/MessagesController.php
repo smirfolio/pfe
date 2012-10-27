@@ -61,7 +61,7 @@
         $this -> Message -> recursive = 2;
         //@form:off
         $message = $this -> Message -> find('all', array(
-            'limit' => 3, 
+            //'limit' => 3, 
             'conditions'=>array('expediteur_id !=' =>$this->iduser()),
             'fields' => array('msg', 
                               'created', 
@@ -88,7 +88,7 @@
         }
        
        
-            
+           
    }
    
    
