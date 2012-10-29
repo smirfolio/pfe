@@ -121,7 +121,7 @@ else {return ' <span class="label label-success"><?php echo _('Oui') ?></span>';
 
 
 };
-var msgstat = function (row, column, value) {console.log(value);
+var msgstat = function (row, column, value) {//console.log(value);
 if (value!='')
     if(value!=iduser){
 {  return '<span class="label label-important"><i class="icon-envelope icon-white"></i></span>';}}

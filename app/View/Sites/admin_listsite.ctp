@@ -26,7 +26,7 @@
     
  ?>
 	<?php  $this -> Html -> scriptStart(array('inline' => false)); ?>
-         $("#VehiculeReset").live("click", function(){  location.reload(); });  
+         $("#SiteReset").live("click", function(){  location.reload(); });  
          
           $(document).ready(function () {
             var data = <?php echo json_encode($site)  ?>;

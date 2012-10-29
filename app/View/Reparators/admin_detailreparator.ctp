@@ -16,18 +16,15 @@
             // Create jqxRating.
             $("#jqxRating").jqxRating({ width: 350, height: 35});
                    
-         $('#jqxRating').jqxRating({value:<?php echo $reparator['Reparator']['rate']; ?>});  
-         
+         $('#jqxRating').jqxRating({disabled:true,value:<?php if(isset($reparator['Reparator']['rate'])){echo $reparator['Reparator']['rate'];}else{echo 0;} ?>});  
+          $("#jqxRating").bind('change', function (event) {
+                document.getElementById("ReparatorRate").value=event.value;
+               // console.log(event.value);
+               
+            });
           
         });
-        $(document).ready(function () {
-            // Create jqxRating.
-            $("#Rating").jqxRating({ width: 350, height: 35});
-            // bind to jqxRating 'change' event.
-            $("#Rating").bind('change', function (event) {
-                $("#ReparatorRate").getElementById("ReparatorRate").value( event.value  );
-            });
-        });
+       
         
     </script>
     
@@ -56,7 +53,7 @@ Note :
 </div>
 
  
-<?php echo $this -> Form -> input('rate', array('label' => 'Note', 'value' => $reparator['Reparator']['rate'])); ?>
+<?php echo $this -> Form -> input('rate', array('type' => 'hidden', 'value' => $reparator['Reparator']['rate'])); ?>
 
  
 <?php echo $this -> Form -> input('nom_contact', array('label' => 'Contact', 'value' => $reparator['Reparator']['nom_contact'])); ?>

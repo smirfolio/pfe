@@ -26,8 +26,19 @@
   //debug($reparators);die;
  ?>
 	<?php  $this -> Html -> scriptStart(array('inline' => false)); ?>
+	
          $("#ReparatorReset").live("click", function(){  location.reload(); });  
          
+           getrat =function(id,note){
+                
+                  $(document).ready(function () {
+            // Create jqxRating.
+            $("#"+id+"jqxRating").jqxRating({ singleVote:true,disabled:true,width: 350, height: 35,value:note});
+        });
+                
+                
+            };
+            
           $(document).ready(function () {
             var data = <?php echo json_encode($reparators)  ?>;
             
@@ -47,8 +58,11 @@
            return '<a  class="btn" href=\"/admin/Reparators/detailreparator/'+value+'\"><i class=\" icon-pencil\"></i></a>   <a  class="btn" href=\"/admin/Reparators/deletreparator/'+value+'\"><i class="icon-ban-circle"></a>';
             }
             
-            var convdate = function (row, column, value) {
-          return  $.format.date(value, "dd/MM/yyyy");
+            var rate = function (row, column, value) {
+           //  console.log(row);
+               getrat(row,value);
+        
+          return  '<div id="'+row+'jqxRating"></div>';
             }
             
             $("#jqxgrid").jqxGrid(
@@ -63,11 +77,10 @@
                 columns: [
                   { text: 'Société', datafield: 'ste', width: 150 },
                   { text: 'Contact', datafield: 'nom_contact', width: 120 },
-                  { text: 'Tel', datafield: 'tel', width:  80,cellsrenderer: convdate },
-                  { text: 'Fax',  datafield: 'fax', width:  80,cellsrenderer: convdate },
+                  { text: 'Tel', datafield: 'tel', width:  80},
                   { text: 'adresse', datafield: 'adresse', width: 120, cellsalign: 'right'   },
                    { text: 'Mail', datafield: 'mail', width:150, cellsalign: 'right'   },
-                  
+                   { text: 'Note',  datafield: 'rate', width:  80,cellsrenderer: rate },
                    { text: 'Action', datafield: 'id', width: 90, cellsalign: 'right',cellsrenderer: cellsrenderer2  }
                    
 
