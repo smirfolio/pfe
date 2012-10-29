@@ -46,10 +46,13 @@
                    <?php echo $this->element('/dashBoard/'.$url.'message');  ?>
                    
                 </div>
+                <?php if($this->Html->isadmin()):  ?>
                 <div id="window1" style="height: 300px;">
                       <?php echo $this->element('/dashBoard/'.$url.'reclamation') ?>
                 </div>
+                <?php endif;  ?>
             </div>
+            
             <div style="overflow: hidden;">
                 <div id="window2" style="height: 300px">
                    <?php echo $this->element('/dashBoard/'.$url.'parc') ?>

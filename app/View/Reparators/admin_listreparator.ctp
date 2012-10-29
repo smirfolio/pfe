@@ -110,13 +110,13 @@
             </div>
             <div class='right' >
                   
-                      <?php   echo $this->Form->input('tel',array('label' =>'Téléphone  :')); ?>
+                      <?php //  echo $this->Form->input('tel',array('label' =>'Téléphone  :')); ?>
                  <?php //echo $this->Form->input('marque',array('options'=>$pannes,'label' =>'Marque:'))  ?>
-                  <?php echo $this->Form->input('fax',array( 'label' =>'Fax :' ))  ?>
+                  <?php // echo $this->Form->input('fax',array( 'label' =>'Fax :' ))  ?>
                 </div>
                 <div class='clearfix'> </div>
                 <div class='bonton' >
-       <p>  <?php //echo $this->Form->reset('reset',array('class'=>'btn', 'div' =>false))  ?> 
+       <p>  <?php echo $this->Form->reset('reset',array('class'=>'btn', 'div' =>false))  ?> 
        	  <?php echo $this->Form->submit('Rechercher',array('class'=>'btn', 'div' =>false))  ?></p> 
        </div>
         </div>

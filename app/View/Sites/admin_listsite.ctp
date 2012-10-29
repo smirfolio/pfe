@@ -99,6 +99,7 @@
                      <?php if ($this->Html->isadmin()): ?>
                       
                             <?php echo $this->Form->input('site',array('label' =>'Site  :'))  ?>
+                             <?php echo $this->Form->input('gov',array('empty'=>'','type'=>'select','options'=>$listgov,'label' =>'Gouvernerat de :'))  ?>
                      <?php endif ?>
                     
                        <?php //echo $this->Form->input('panne',array('options'=>$pannes,'label' =>'Type Panne :'))  ?>
@@ -111,7 +112,7 @@
                 </div>
                 <div class='clearfix'> </div>
                 <div class='bonton' >
-       <p>  <?php // echo $this->Form->reset('Reset',array('class'=>'btn', 'div' =>false))  ?>   <?php //echo $this->Form->submit('Rechercher',array('class'=>'btn', 'div' =>false))  ?></p> 
+       <p> <?php echo $this->Form->reset('reset',array('class'=>'btn', 'div' =>false))  ?>    <?php echo $this->Form->submit('Rechercher',array('class'=>'btn', 'div' =>false))  ?></p> 
        </div>
         </div>
     </div>

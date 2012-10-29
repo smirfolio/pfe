@@ -24,7 +24,7 @@
    //,'placeholder'=>'.span5' )); ?>
  
 <?php echo $this -> Form -> input('nom', array('label' => 'Désignation', 'value' => $site['Site']['nom'])); ?>
-<?php echo $this -> Form -> input('gouvernerat', array('label' => 'Gouvernerat', 'value' => $site['Site']['gouvernerat'])); ?>
+<?php echo $this -> Form -> input('gouvernerat', array('label' => 'Gouvernerat','options' =>$listgov,'type'=>'select','value' => $site['Site']['gouvernerat'])); ?>
 <?php  echo $this->Form->input('adresse',array('label'=>'Adresse','value'=>$site['Site']['adresse'])); ?>
 <?php echo $this -> Form -> input('tel', array('label' => 'Téléphone', 'value' => $site['Site']['tel'])); ?>
 <?php echo $this -> Form -> input('fax', array('label'=>'Fax','value' => $site['Site']['fax'])); ?>
@@ -45,7 +45,7 @@
 <?php echo $this -> Form -> input('id'); ?>
 
 <?php echo $this -> Form -> input('nom', array('label' => 'Désignation' )); ?>
-<?php echo $this -> Form -> input('gouvernerat', array('label' => 'Gouvernerat' )); ?>
+<?php echo $this -> Form -> input('gouvernerat', array('label' => 'Gouvernerat','empty'=>'','options' =>$listgov,'type'=>'select')); ?>
 <?php echo $this -> Form -> input('adresse', array('label'=>'Adresse')); ?>
 <?php // echo $this->Form->input('nom',array('label'=>'Site','value'=>$vehicule['Site']['nom'])); ?>
 <?php echo $this -> Form -> input('tel', array('label' => 'Téléphone' )); ?>

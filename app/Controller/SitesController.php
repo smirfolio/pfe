@@ -10,24 +10,18 @@ class SitesController  extends AppController {
     
     public function admin_listsite() {
         
-     //   $listmarque = $this->Vehicule->listemarque();
-       // $listmodel = $this->Vehicule->listemodel();
-        //debug($listmarque);die;
-        //$listpannes = $this -> Panne -> listepannes();
-       
-        //$vide = array('' => '');
-        //array_unshift($sites, $vide);
-        //$this -> set('sites', $sites);
-        //$this -> set('listmodel', $listmodel);
-        //$this -> set('listmarque', $listmarque);
+        $listgov = $this->Site->listgov();
+      
+        $this -> set('listgov', $listgov);
+        //  debug($listgov);
         $condition = array();
         if (($this -> request -> is('put') || $this -> request -> is('post'))) {
             $condition = $this -> querycond($this -> request['data']['Site']);
-            // debug($condition);
+           
         }
- $sites = $this -> Site -> find('all');
+ $sites = $this -> Site -> find('all',array('conditions'=>$condition));
 		  //  debug($sites);die;
-        $this -> Site -> recurcive = 1;
+     //   $this -> Site -> recurcive = 1;
 
        // $vehicules = $this -> Vehicule -> find('all', array('conditions' => $condition));
         //  debug($vehicules);die;
@@ -67,6 +61,9 @@ class SitesController  extends AppController {
 
 
     public function admin_detailsite($id = null) {
+           $listgov = $this->Site->listgov();
+      
+        $this -> set('listgov', $listgov);
     	 if (isset($id)) {
         $site = $this -> Site -> find('first',array('conditions' => array('Site.id' => $id),
                                                                             'fields'=> array(
@@ -103,19 +100,19 @@ class SitesController  extends AppController {
 
     public function querycond($params) {//debug($params);die;
         $conditions = array();
-        if (isset($params) && @$params['active'] != '') {
-            $conditions += array('Vehicule.active' => $params['active']);
+        if (isset($params) && @$params['gov'] != '') {
+            $conditions += array('Site.gouvernerat' => $params['gov']);
         }
 
         if (isset($params) && @$params['marque'] != '') {
-            $conditions += array('Vehicule.marque' => $params['marque']);
+            $conditions += array('Site.marque' => $params['marque']);
         }
         if (isset($params) && @$params['model'] != '') {
-            $conditions += array('Vehicule.model' => $params['model']);
+            $conditions += array('Site.model' => $params['model']);
         }
 
         if (isset($params) && @$params['site'] != '') {
-            $conditions += array('Vehicule.site_id' => $params['site']);
+            $conditions += array('Site.nom like ?' =>'%'. $params['site'].'%');
         }
 
         return $conditions;

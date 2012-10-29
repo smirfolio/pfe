@@ -277,9 +277,19 @@ class ReclamationsController  extends AppController {
 
     }
 
-    public function etatparcsite() {
+    public function etatparcsite($option=null) {
+        
+        $conditions = array('active' => false);
+        if($this->isadmin()!=true && $option==1)
+                 {      
+                      $conditions+=array('Vehicule.site_id'=>$this->usersite()) ;  
+                         
+                     //debug($conditions);die;
+                 }
+        
+  
 
-        $etat = $this -> Vehicule -> find('all', array('fields' => array('Vehicule.id', 'Vehicule.site_id', 'COUNT(`Vehicule`.`id`) as nbr'), 'group' => 'site_id', 'conditions' => array('active' => false), 'contain' => array('Site' => array('fields' => array('nom')))));
+        $etat = $this -> Vehicule -> find('all', array('fields' => array('Vehicule.id', 'Vehicule.site_id', 'COUNT(`Vehicule`.`id`) as nbr'), 'group' => 'site_id', 'conditions' => $conditions, 'contain' => array('Site' => array('fields' => array('nom')))));
         /*
          $etat = $this->Site->find('all',array('fields'=>array('id','nom'),
 
@@ -289,6 +299,31 @@ class ReclamationsController  extends AppController {
         `site_id`'),
 
          )))); */
+          if($this->isadmin()!=true && $option==1)
+                 {
+                      $statpanne = array();
+        foreach ($etat as $key => $value) {
+
+            $totalvehi = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
+          //  $statpanne[$key]['nbrpanne'] = $value[0]['nbr'];
+            $statpanne[$key]['Panne'] = ($value[0]['nbr'] * 100) / $totalvehi;
+             $statpanne[$key]['Valide'] = 100 -  $statpanne[$key]['Panne'] ;
+        //    $statpanne[$key]['sites'] = $value['Site']['nom'];
+        //    $statpanne[$key]['nbrvalide'] = $statpanne[$key]['totalvehicule']- $value[0]['nbr'];
+            }
+        $stat = array(
+        0 =>array('Label' =>'En Panne',
+                    'valeur' =>    $statpanne[0]['Panne']),
+        1=>array('Label' =>'Valide',
+                    'valeur' =>    $statpanne[0]['Valide'])
+        
+        );
+         $statpanne =array();
+         $statpanne = $stat;
+       // debug($statpanne);die;
+         
+                 }
+          else{
         $statpanne = array();
         foreach ($etat as $key => $value) {
 
@@ -297,6 +332,7 @@ class ReclamationsController  extends AppController {
             $statpanne[$key]['pcent'] = ($value[0]['nbr'] * 100) / $statpanne[$key]['totalvehicule'];
             $statpanne[$key]['sites'] = $value['Site']['nom'];
             $statpanne[$key]['nbrvalide'] = $statpanne[$key]['totalvehicule']- $value[0]['nbr'];
+        }
         }
         return $statpanne;
         //debug($statpanne);

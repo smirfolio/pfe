@@ -107,14 +107,14 @@ public function admin_detailreparator($id = null) {
     public function querycond($params) {//debug($params);die;
         $conditions = array();
         if (isset($params) && @$params['ste'] != '') {
-            $conditions += array('Reparator.ste' => $params['ste']);
+            $conditions += array('Reparator.ste like ?' => '%'.$params['ste'].'%');
         }
 
         if (isset($params) && @$params['tel'] != '') {
             $conditions += array('Reparator.tel' => $params['tel']);
         }
-        if (isset($params) && @$params['model'] != '') {
-            $conditions += array('Reparator.contact' => $params['contact']);
+        if (isset($params) && @$params['contact'] != '') {
+            $conditions += array('Reparator.nom_contact like ? ' => '%'.$params['contact'].'%');
         }
 
         if (isset($params) && @$params['fax'] != '') {
