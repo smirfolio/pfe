@@ -1,7 +1,7 @@
  <?php $dermessage= $this->requestAction('/Messages/dernierremessage');  ?>
  <?php //debug($dermessage);die;  ?>
 <div>
-                       <?php echo __('Dérniers messages') ?>m</div>
+                       <?php echo __('Dérniers messages') ?></div>
                     <div>
                         
                         <?php foreach ($dermessage as $key => $value): ?>

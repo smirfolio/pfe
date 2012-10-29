@@ -116,12 +116,12 @@ datatype: "array"
 var vuestat = function (row, column, value) {
     if (role ==1){
 if (value===false)
-{  return ' <span class="label label-important"><?php echo _('Nom') ?></span>';}
+{  return ' <span class="label label-important"><?php echo _('Non') ?></span>';}
 else {return ' <span class="label label-success"><?php echo _('Oui') ?></span>';}}
 
 
 };
-var msgstat = function (row, column, value) {console.log(value);
+var msgstat = function (row, column, value) {//console.log(value);
 if (value!='')
     if(value!=iduser){
 {  return '<span class="label label-important"><i class="icon-envelope icon-white"></i></span>';}}

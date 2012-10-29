@@ -4,6 +4,11 @@ class Message extends AppModel {
     
     
      public $belongsTo  = array(
+      
+      'Reclamation'=>array(
+            'className' => 'Reclamation',
+            'foreignKey' => 'reclamation_id',
+        ),
        
         'Userexp'=>array(
             'className' => 'User',

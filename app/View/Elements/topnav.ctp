@@ -6,7 +6,7 @@
  //debug($this->Html->isadmin());
   ?>
 
-
+    
 	 <div class="container">
 	<i class="icon-user"></i>
 	<?php if ($this->Html->isadmin()): ?>
@@ -32,7 +32,7 @@
         		
         	   -
         <?php endif ?>
-<?php echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout', 'admin'=>false))  ?>
+<?php echo $this->Html->link('Déconnexion', array('controller'=>'users', 'action'=>'logout', 'admin'=>false))  ?>
 <?php //echo $this->Html->iduser() ;?>
 </div>
 

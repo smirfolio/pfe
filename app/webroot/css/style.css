@@ -104,6 +104,7 @@ body {
 					
 
 #nav1 {
+	
 	height:55px;
 	margin:0 auto ;
 	text-align:center;
@@ -123,22 +124,24 @@ body {
 
 
 #nav1 ul li {
+	width: 130px;
 	display:block;
 	float:left;
 	margin:0;
 	padding:0;
 	background:transparent url('/img/css/hmenu.jpg') repeat-x top left;
 	border-left:1px solid #705f5c;
+	width: 110px;
 
 }
 
 
 #nav1 ul li a {
 	display:block;
-	float:left;
+	
 	color:#FFFFFF;
 	text-decoration:none;
-	padding:0px 50px ;
+	padding:0px 20px ;
 	line-height:55px;
 	font-weight:bold;
 }
