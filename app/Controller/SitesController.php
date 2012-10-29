@@ -3,124 +3,99 @@
 /**
  *
  */
-class VehiculesController  extends AppController {
+class SitesController  extends AppController {
     public $uses = array('Panne', 'Vehicule', 'Reclamation', 'Statu', 'Reparator', 'Site');
     public $helpers = array('Html', 'Session');
  
     
-    public function admin_listvehicule() {
+    public function admin_listsite() {
         
-        $listmarque = $this->Vehicule->listemarque();
-        $listmodel = $this->Vehicule->listemodel();
+     //   $listmarque = $this->Vehicule->listemarque();
+       // $listmodel = $this->Vehicule->listemodel();
         //debug($listmarque);die;
-        $listpannes = $this -> Panne -> listepannes();
-        $sites = $this -> Site -> find('list', array('fields' => array('id', 'nom')));
-        $vide = array('' => '');
-        array_unshift($sites, $vide);
-        $this -> set('sites', $sites);
-        $this -> set('listmodel', $listmodel);
-        $this -> set('listmarque', $listmarque);
+        //$listpannes = $this -> Panne -> listepannes();
+       
+        //$vide = array('' => '');
+        //array_unshift($sites, $vide);
+        //$this -> set('sites', $sites);
+        //$this -> set('listmodel', $listmodel);
+        //$this -> set('listmarque', $listmarque);
         $condition = array();
         if (($this -> request -> is('put') || $this -> request -> is('post'))) {
-            $condition = $this -> querycond($this -> request['data']['Vehicule']);
+            $condition = $this -> querycond($this -> request['data']['Site']);
             // debug($condition);
         }
+ $sites = $this -> Site -> find('all');
+		  //  debug($sites);die;
+        $this -> Site -> recurcive = 1;
 
-        $this -> Vehicule -> recurcive = 1;
-
-        $vehicules = $this -> Vehicule -> find('all', array('conditions' => $condition));
+       // $vehicules = $this -> Vehicule -> find('all', array('conditions' => $condition));
         //  debug($vehicules);die;
-        $voiture = array();
-        foreach ($vehicules as $key => $value) {
-            $voiture[$key]['id'] = $value['Vehicule']['id'];
-            $voiture[$key]['matricule'] = $value['Vehicule']['matricule'];
-            $voiture[$key]['marque'] = $value['Vehicule']['marque'];
-            $voiture[$key]['date_circulation'] = $value['Vehicule']['date_circulation'];
-            $voiture[$key]['active'] = $value['Vehicule']['active'];
-            $voiture[$key]['sitenom'] = $value['Site']['nom'];
+        $site = array();
+        foreach ($sites as $key => $value) {
+            $site[$key]['id'] = $value['Site']['id'];
+            $site[$key]['nom'] = $value['Site']['nom'];
+            $site[$key]['gouvernerat'] = $value['Site']['gouvernerat'];
+			$site[$key]['adresse'] = $value['Site']['adresse'];
+				$site[$key]['tel'] = $value['Site']['tel'];
+			$site[$key]['nbrvehicule'] =count($value['Vehicule']);
+			 
+			//$site[$key]['nbrvehiculepanne'] =count($value['Vehicule']['active'],array('conditions'=>$conditionpanne));
+			 //$nbrvehicule= count($sites[$key]['Vehicule']);
+			 //$this -> set('nbrvehicule', $nbrvehicule);
+			 //debug($nbrvehicule);die;
+           // $site[$key]['date_circulation'] = $value['Site']['date_circulation'];
+            //$site[$key]['active'] = $value['Vehicule']['active'];
+            //$site[$key]['sitenom'] = $value['Site']['nom'];
+                      
+            
+            
         }
         
         
-        $nbrvr= count($voiture);
-        if ($nbrvr != 0 && ($this -> request -> is('put') || $this -> request -> is('post'))) {   $this -> Session -> setFlash("$nbrvr  Véhicule(s) retrouvée(s) ", 'warninginfo');
+        $nbrvr= count($site);
+        if ($nbrvr != 0 && ($this -> request -> is('put') || $this -> request -> is('post'))) {   $this -> Session -> setFlash("$nbrvr  Site(s) retrouvée(s) ", 'warninginfo');
         } elseif ($nbrvr == 0) { $this -> Session -> setFlash("Pas de résultats pour cette recherche !", 'warning');
         }
        
         
 
         //return json_encode($vehicules);
-        $this -> set(compact('voiture'));
+        $this -> set(compact('site'));
 
     }
 
-    function admin_activevehicule($id = null) {
-        //  debug($id);die;
-        if (isset($id)) {
-            $data = array('id' => $id, 'active' => 0);
 
-            if ($this -> Vehicule -> save($data)) {
-                $this -> Session -> setFlash('Vehicule Désactivé', 'notify');
-                $this -> redirect($this -> referer());
-            } else {
-
-                $this -> Session -> setFlash('Probléme !!!', 'error');
-                $this -> redirect($this -> referer());
-
-            }
-
-        }
-
-        if ($this -> Vehicule -> delete($id)) {
-            $this -> Session -> setFlash('Vehicule suprimé', 'notify');
-            $this -> redirect($this -> referer());
-        }
-        //$this->User->delete($this->request->data('Users.id'));
-
-        else { $this -> Session -> setFlash('Probleme supression', 'error');
-            $this -> redirect($this -> referer());
-        }
-
+    public function admin_detailsite($id = null) {
+    	 if (isset($id)) {
+        $site = $this -> Site -> find('first',array('conditions' => array('Site.id' => $id),
+                                                                            'fields'=> array(
+                                                                                             'id',
+                                                                                             'nom',
+                                                                                             'gouvernerat',
+                                                                                             'adresse',
+                                                                                             'tel',
+                                                                                             'fax',
+                                                                                             'mail')));
+     
+      
+        $this -> set('site', $site);
+		
+		 }
+        
     }
 
-    public function admin_detailvehicule($id = null) {
-        $sites = $this -> Site -> find('list', array('fields' => array('id', 'nom')));
-        $vide = array('' => '');
-        array_unshift($sites, $vide);
-        $this -> set('sites', $sites);
-        if (isset($id)) {
-            //debug($id);die;
-            //@form:off
-            $vehicule = $this -> Vehicule -> find('first', array('conditions' => array('Vehicule.id' => $id), 
-                                                                 'fields' => array('matricule', 
-                                                                                    'marque', 
-                                                                                    'site_id', 
-                                                                                    'model', 
-                                                                                    'id', 
-                                                                                    'energie', 
-                                                                                    'puissance', 
-                                                                                    'date_circulation', 
-                                                                                    'Site.nom', 
-                                                                                    'Site.id')));
-            //@form:on
-
-            $this -> set('vehicule', $vehicule);
-        }
-    }
-
-    public function admin_editvehicule() {
+    public function admin_editsite() {
         if (($this -> request -> is('put') || $this -> request -> is('post'))) {
             //	 debug($this->request->data);die;
 
-            if ($this -> Vehicule -> save($this->request->data)) {
-                $this -> Session -> setFlash('Véhicule enregistré', 'notify');
-                $this -> redirect(array('action' => 'listvehicule'));
+            if ($this -> Site -> save($this->request->data)) {
+                $this -> Session -> setFlash('Site enregistré', 'notify');
+                $this -> redirect(array('action' => 'listsite'));
 
-            } else { $sites = $this -> Site -> find('list', array('fields' => array('id', 'nom')));
-        $vide = array('' => '');
-        array_unshift($sites, $vide);
-        $this -> set('sites', $sites);
-                $this->render('admin_detailvehicule');
-                 $this -> Session -> setFlash('Véhicule non enregistré', 'error');
+            } else { 
+                $this->render('admin_detailsite');
+                 $this -> Session -> setFlash('Site non enregistré', 'error');
                
             }
         }

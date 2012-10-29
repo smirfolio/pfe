@@ -16,7 +16,7 @@
                   <a href="/admin/Reparators/listreparator/" shape="rect"><?php echo _('Mécaniciens');   ?></a>
                 </li>
                  <li <?php if($this->request->params['controller']=='Sites'){echo 'id="current"';} ?> >
-                  <a href="/admin/Sites/listvehicule/" shape="rect"><?php echo _('Sites');   ?></a>
+                  <a href="/admin/Sites/listsite/" shape="rect"><?php echo _('Sites');   ?></a>
                 </li>
                 <?php endif ?>
                  

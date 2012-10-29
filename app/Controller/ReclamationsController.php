@@ -71,7 +71,7 @@ class ReclamationsController  extends AppController {
         $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
         $rec['reclam'] = $reclam;
         $this -> set($rec);
-        //debug($reclam);die;
+       //debug($reclam);die;
     }
 
     public function addreclam() {
@@ -139,8 +139,16 @@ class ReclamationsController  extends AppController {
             //debug($rep);die;
             $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
             $rec['reclam'] = $reclam;
+			$site = $this-> Site -> find('first', array('conditions'=>array('Site.id'=>$reclam['Vehicule']['site_id'])));
+			$sit['site']= $site;
+			 $this -> set('site',$site);
+			 
+			 
             $this -> set($rec);
-            //debug($reclam);die;
+			
+             //debug($site);die;
+             //debug($reclam);die;
+            
         }
     }
 
@@ -298,18 +306,24 @@ class ReclamationsController  extends AppController {
                       
 public function admin_viewpdf($id = null) 
     {
-    	//debug($id);die;
+   	//debug($id);die;
 if (!$id) {
 $this->Session->setFlash('Sorry, there was no PDF selected.');
 $this->redirect(array('action'=>'listreclam'), null, true);
 }
 $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
         $rec['reclam'] = $reclam;
+		
+		
+		$site = $this-> Site -> find('first', array('conditions'=>array('Site.id'=>$reclam['Vehicule']['site_id'])));
+			$sit['site']= $site;
+			 $this -> set('site',$site);
         $this -> set($rec);
 		//debug($id);die;
  // $pdf-> process (Router :: url ('/ admin /', true) ); 
 $this->layout = 'pdf'; //this will use the pdf.ctp layout
 $this->render();
+ 
 }
 
  public function userdernierremessage(){

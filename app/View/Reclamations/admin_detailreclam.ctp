@@ -1,5 +1,6 @@
 <?php  
-//debug($reclam['User']['id']);
+//debug($site);die;
+ //debug($reclam['User']['id']);
  ?>
  <h4><?php echo __('Traitement de Reclamation') ?> #<?php echo $reclam['Reclamation']['identifiant'] ?></h4>
 <div id='center'>
@@ -7,10 +8,15 @@
 	<table>
 	<?php echo $this->Form->hidden('id',array('value'=>$reclam['Reclamation']['id']));  ?>
 		<tr width='200px' ><td><b><?php echo __('Créer le') ?></b></td><td><?php echo $this->Time->format('d/M/Y',$reclam['Reclamation']['created']);   ?></td></tr>
+		
+		
+		<tr><td><?php echo "<b>Site : </b></td><td>".$site['Site']['nom'] ?></td></tr><br>
+		<tr><td><?php echo "<b>Déclarant : </b></td><td>".$reclam['User']['nom'] ?></td></tr><br>
+		
 		<tr><td><b><?php echo __('Status') ?></b></td><td><?php echo $this->Form->input('statu_id',array('label'=>false,'default'=>$reclam['Statu']['id']));  ?></td><tr><td><b><?php echo __('Panne') ?></b></td><td><?php echo $reclam['Panne']['label'] ?></td></tr>
 		<tr><td><b><?php echo __('Vehicule') ?> <?php echo $this->Form->hidden('vehicule_id',array('value'=>$reclam['Reclamation']['vehicule_id']));  ?></b><br><br><br>
 			
-		</td><td><?php echo $reclam['Vehicule']['matricule'] ?><br><?php echo $reclam['Vehicule']['marque'] ?><br><?php echo $reclam['Vehicule']['model'] ?><br></td></tr>
+		</td><td><?php echo "<b>Matricule : </b>".$reclam['Vehicule']['matricule'] ?><br><?php echo "<b>Marque : </b>".$reclam['Vehicule']['marque'] ?><br><?php echo "<b>Modèle : </b>".$reclam['Vehicule']['model'] ?><br></td></tr>
 		<tr><td><b><?php echo __('Réparateur') ?></b></td><td>
 			<?php echo $this->Form->input('reparator_id',array('label'=>false,'default'=>$reclam['Reclamation']['reparator_id']));  ?>
 			</td></tr>

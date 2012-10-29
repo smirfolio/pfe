@@ -15,16 +15,28 @@
         $(document).ready(function () {
             // Create jqxRating.
             $("#jqxRating").jqxRating({ width: 350, height: 35});
-            // bind to jqxRating 'change' event.
-           // $("#jqxRating").bind('change', function (event)
-          // $('#jqxRating').jqxRating('getValue');
-          //var value = $('#jqxRating').jqxRating('getValue'); 
-         //$("#jqxrating").jqxRating({value: 5});
+                   
+         $('#jqxRating').jqxRating({value:<?php echo $reparator['Reparator']['rate']; ?>});  
          
-         
-         $('#jqxRating').jqxRating({value:<?php echo $reparator['Reparator']['rate']; ?>});   
+          
         });
+        $(document).ready(function () {
+            // Create jqxRating.
+            $("#Rating").jqxRating({ width: 350, height: 35});
+            // bind to jqxRating 'change' event.
+            $("#Rating").bind('change', function (event) {
+                $("#ReparatorRate").getElementById("ReparatorRate").value( event.value  );
+            });
+        });
+        
     </script>
+    
+    
+    
+    
+    
+    
+    
 <?php if (isset($reparator)): ?>
 	<h4><?php echo __('Détails Réparateur :'.' '.$reparator['Reparator']['ste']) ?>
 </h4>
@@ -36,6 +48,17 @@
    //,'placeholder'=>'.span5' )); ?>
  
 <?php echo $this -> Form -> input('ste', array('label' => 'Société', 'value' => $reparator['Reparator']['ste'])); ?>
+<div class='right' >
+Note :	
+<div id='jqxRating'>
+    </div>
+    
+</div>
+
+ 
+<?php echo $this -> Form -> input('rate', array('label' => 'Note', 'value' => $reparator['Reparator']['rate'])); ?>
+
+ 
 <?php echo $this -> Form -> input('nom_contact', array('label' => 'Contact', 'value' => $reparator['Reparator']['nom_contact'])); ?>
 <?php // echo $this->Form->input('nom',array('label'=>'Site','value'=>$vehicule['Site']['nom'])); ?>
 <?php echo $this -> Form -> input('tel', array('label' => 'Téléphone', 'value' => $reparator['Reparator']['tel'])); ?>
@@ -46,18 +69,7 @@
 
 
 <?php echo $this -> Form -> end(array('label'=>'Enregistrer','div'=>false, 'class'=>'btn btn-primary')); ?>
-<div class='right' >
-	
-<div id='jqxRating'>
-    </div>
-    <div style='margin-top: 10px;'>
-        <div style='float: left;'>
-            Rating:</div>
-        <div style='float: left;' id='rate'>
-        </div>
 
-
-</div>
 
 <?php else: ?>
 	<h4><?php echo __('Ajout  Réparateur :') ?>
