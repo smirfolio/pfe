@@ -18,8 +18,8 @@
                  <li <?php if($this->request->params['controller']=='Sites'){echo 'id="current"';} ?> >
                   <a href="/admin/Sites/listsite/" shape="rect"><?php echo _('Sites');   ?></a>
                 </li>
-                 <li <?php if($this->request->params['controller']=='Sites'){echo 'id="current"';} ?> >
-                  <a href="/admin/Sites/listsite/" shape="rect"><?php echo _('Pannes');   ?></a>
+                 <li <?php if($this->request->params['controller']=='Pannes'){echo 'id="current"';} ?> >
+                  <a href="/admin/Pannes/listpanne/" shape="rect"><?php echo _('Pannes');   ?></a>
                 </li>
                 <?php endif ?>
                  

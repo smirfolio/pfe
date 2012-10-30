@@ -260,13 +260,13 @@ $("#datefin").val(date);
 
 <div id='jqxExpander'>
 	<div>
-		<h5> <?php echo _('Rechercher Reclamation: ')  ?><small>--<?php echo _('Double Click pour ouvrir')  ?></small></h5>
+		<h5> <?php echo _('Rechercher Déclaration: ')  ?><small>--<?php echo _('Double Click pour ouvrir')  ?></small></h5>
 	</div>
 	<div>
 		<?php echo $this -> Form -> create('Reclamation', array('action' => 'listreclam')); ?>
 		<div class='left' style="float: left; position: relative; width: 400px">
 			<div class='input text'>
-				<label for="datedebu"><?php echo _('Reclamations de la date de ') ?></label>
+				<label for="datedebu"><?php echo _('Déclarations de la date de ') ?></label>
 				<div id='Datedeb'></div>
 				<div id='Events'></div>
 			</div>
@@ -301,14 +301,14 @@ $("#datefin").val(date);
 </div>
 <div id='jqxExpander2'>
 	<div>
-		<h5> <?php echo _('Statistique reclamation: ')  ?><small>--<?php echo _('Double Click pour ouvrir')  ?></small></h5>
+		<h5> <?php echo _('Statistique Déclaration: ')  ?><small>--<?php echo _('Double Click pour ouvrir')  ?></small></h5>
 	</div>
 	<div>
 		<div id='jqxChart' style="width:680px; height:400px;"></div>
 	</div>
 </div>
 
-<h3><?php echo __('Liste de vos réclamations') ?></h3>
+<h3><?php echo __('Liste de vos déclarations') ?></h3>
 
 <div id='jqxWidget' style="font-size: 9px; font-family: Verdana; float: left;">
 	<div id="jqxgrid"></div>
@@ -365,7 +365,7 @@ $("#datefin").val(date);
 -->
 
 <div style="padding-top:10px; float: right;">
-	<a class="btn btn-primary" href="/Reclamations/addreclam" ><i class="icon-plus icon-white"></i> <?php echo __('Ajout de reclamation') ?></a>
+	<a class="btn btn-primary" href="/Reclamations/addreclam" ><i class="icon-plus icon-white"></i> <?php echo __('Ajout de déclaration') ?></a>
 </div>
 <script>
 	$("#ReclamationReset").live("click", function() {

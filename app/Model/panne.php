@@ -1,6 +1,13 @@
 <?php
 class Panne extends AppModel {
 
+
+
+public $name = 'Panne';
+		
+	public $useTable = 'pannes';
+	
+	
 	public function listepannes(){
 		$list = array(
 		''=>'',

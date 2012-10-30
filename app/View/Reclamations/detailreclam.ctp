@@ -16,7 +16,7 @@
 </ul>  
 </div>  
 </div>  
- <h4><?php echo __('Détail Reclamation') ?> #<?php echo $reclam['Reclamation']['identifiant'] ?></h4>
+ <h4><?php echo __('Détail Déclaration') ?> #<?php echo $reclam['Reclamation']['identifiant'] ?></h4>
 <div id='center'>
 	<table>
 		

@@ -2,7 +2,7 @@
 //debug($site);die;
  //debug($reclam['User']['id']);
  ?>
- <h4><?php echo __('Traitement de Reclamation') ?> #<?php echo $reclam['Reclamation']['identifiant'] ?></h4>
+ <h4><?php echo __('Traitement de Déclaration') ?> #<?php echo $reclam['Reclamation']['identifiant'] ?></h4>
 <div id='center'>
 		<?php echo $this->Form->create('Reclamation',array('action'=>'admin_detailreclam'));  ?>
 	<table>

@@ -12,7 +12,7 @@
 	<?php if ($this->Html->isadmin()): ?>
 	<?php echo __('Role') ?> : <?php echo $this->Html->myrole(); ?> - 
 	<?php if(isset($nreclam)  && $nreclam != 0)  : ?>
-		<?php echo _('Reclamations en attentes : ') ?>
+		<?php echo _('Déclarations en attentes : ') ?>
 		<a href='/Reclamations/listreclam'><span class="badge"><?php echo $nreclam ?></a></span> -
 	<?php endif ?>
 	
