@@ -160,7 +160,7 @@ class ReclamationsController  extends AppController {
             //debug($data);die;
             if ($this -> Reclamation -> save($this -> data, $validate = false)) {
                 $this -> Session -> setFlash('Réclamation annulée', 'notify');
-                $this -> redirect('listreclam');
+               $this -> redirect($this -> referer());
             } else { $this -> Session -> setFlash('Probleme annulation', 'error');
                 $this -> redirect($this -> referer());
             }

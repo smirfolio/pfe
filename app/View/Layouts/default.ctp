@@ -13,11 +13,14 @@
         echo $this->Html->css('sndp');
 		echo $this->Html->script('bootstrap');
 		
+		
 		echo $this->Html->script('jquery');
         echo  $this -> Html -> script('jqdateformat');
+		
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+		
 	?>
 
   </head>
