@@ -103,8 +103,8 @@ class PannesController  extends AppController {
    		
 		
 		
-		//$this->Panne->delete($id);
-		//$this-> redirect($this->referer());
+		$this->Panne->delete($id);
+		$this-> redirect($this->referer());
    	}
    	
 	
