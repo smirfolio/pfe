@@ -44,7 +44,7 @@ class ReclamationsController  extends AppController {
         foreach ($reclam as $key => $value) {
             $reclamjeson[$key]['identifiant'] = $value['Reclamation']['identifiant'];
             $reclamjeson[$key]['reclamateur'] = $value['User']['nom'];
-            $reclamjeson[$key]['panne'] = $value['Panne']['label'];
+          if(isset($value['Panne']['label']) && $value['Panne']['label']!=''){  $reclamjeson[$key]['panne'] = $value['Panne']['label'];} else{$reclamjeson[$key]['panne'] ='Autre';};
             $reclamjeson[$key]['status'] = $value['Statu']['label'];
             $reclamjeson[$key]['vehimatricul'] = $value['Vehicule']['matricule'];
             $reclamjeson[$key]['reclamdate'] = $value['Reclamation']['created'];
@@ -355,7 +355,7 @@ $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Rec
 			$sit['site']= $site;
 			 $this -> set('site',$site);
         $this -> set($rec);
-		//debug($id);die;
+		//debug($rec);die;
  // $pdf-> process (Router :: url ('/ admin /', true) ); 
 $this->layout = 'pdf'; //this will use the pdf.ctp layout
 $this->render();

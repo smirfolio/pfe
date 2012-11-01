@@ -291,7 +291,7 @@ $("#datefin").val(date);
                 // =>'Utilisateur :')) ?>
 			<?php echo $this->Form->input('site',array('options'=>$siteslist,'label' =>'Site  :','empty'=>''))  ?>
 			<?php endif ?>
-			<?php echo $this->Form->input('panne',array('options'=>$pannes,'label' =>'Type Panne :'))  ?>
+			<?php echo $this->Form->input('panne',array('options'=>$pannes,'label' =>'Type Panne :', 'empty'=>''))  ?>
 		</div>
 		<div class='clearfix'></div>
 		<p>
