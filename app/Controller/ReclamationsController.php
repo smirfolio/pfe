@@ -4,16 +4,15 @@
  *
  */
 class ReclamationsController  extends AppController {
-    public $uses = array('Message','Panne', 'Vehicule', 'Reclamation', 'Statu', 'Reparator', 'NotifsReclamation', 'Site', 'User');
+    public $uses = array('Message', 'Panne', 'Vehicule', 'Reclamation', 'Statu', 'Reparator', 'NotifsReclamation', 'Site', 'User');
     public $helpers = array('Html', 'Session', 'Form', 'Js');
     var $components = array('RequestHandler');
 
-  
     public function listreclam() {
         $optionstatus = $this -> Statu -> find('list', array('fields' => array('id', 'label')));
         $listpannes = $this -> Panne -> listepannes();
         $siteslist = $this -> Site -> find('list', array('fields' => array('id', 'nom')));
-     
+
         $this -> set('siteslist', $siteslist);
         $this -> set('status', $optionstatus);
         $this -> set('pannes', $listpannes);
@@ -21,7 +20,7 @@ class ReclamationsController  extends AppController {
         $condition = array();
         if (($this -> request -> is('put') || $this -> request -> is('post'))) {
             $condition = $this -> querycond($this -> request['data']['Reclamation']);
-             //debug($condition);die;
+            //debug($condition);die;
         }
 
         $id = $this -> iduser();
@@ -34,31 +33,30 @@ class ReclamationsController  extends AppController {
 
         //debug($condition);die;
         $this -> Reclamation -> recursive = 2;
-        $reclam = $this -> Reclamation -> find('all', array('conditions' => $condition, 
-                                                            array('fields' => array('identifiant', 'created', 'user_id'), 
-                                                            'contain' => array('User.nom', 
-                                                                               'User' => array('Site' => array('fields' => array('nom'))), 
-                                                                               'Vehicule' => array('fields' => array('matricule'))))));
-       // Debug($reclam);die;
-        $reclamjeson =array();
+        $reclam = $this -> Reclamation -> find('all', array('conditions' => $condition, array('fields' => array('identifiant', 'created', 'user_id'), 'contain' => array('User.nom', 'User' => array('Site' => array('fields' => array('nom'))), 'Vehicule' => array('fields' => array('matricule'))))));
+        // Debug($reclam);die;
+        $reclamjeson = array();
         foreach ($reclam as $key => $value) {
             $reclamjeson[$key]['identifiant'] = $value['Reclamation']['identifiant'];
             $reclamjeson[$key]['reclamateur'] = $value['User']['nom'];
-          if(isset($value['Panne']['label']) && $value['Panne']['label']!=''){  $reclamjeson[$key]['panne'] = $value['Panne']['label'];} else{$reclamjeson[$key]['panne'] ='Autre';};
+            if (isset($value['Panne']['label']) && $value['Panne']['label'] != '') {  $reclamjeson[$key]['panne'] = $value['Panne']['label'];
+            } else {$reclamjeson[$key]['panne'] = 'Autre';
+            };
             $reclamjeson[$key]['status'] = $value['Statu']['label'];
             $reclamjeson[$key]['vehimatricul'] = $value['Vehicule']['matricule'];
             $reclamjeson[$key]['reclamdate'] = $value['Reclamation']['created'];
             $reclamjeson[$key]['reclamid'] = $value['Reclamation']['id'];
-            $reclamjeson[$key]['vue'] = isset($value['NotifsReclamation'][0]['vue'])?$value['NotifsReclamation'][0]['vue']:'';
-           // $reclamjeson[$key]['msg'] = isset($value['NotifsMessage'][0]['vue'])?$value['NotifsMessage'][0]['vue']:'';
-             $reclamjeson[$key]['msg'] =isset($value['NotifsMessage'][0]['expediteur_id'])?$value['NotifsMessage'][0]['expediteur_id']:'';
+            $reclamjeson[$key]['vue'] = isset($value['NotifsReclamation'][0]['vue']) ? $value['NotifsReclamation'][0]['vue'] : '';
+            // $reclamjeson[$key]['msg'] =
+            // isset($value['NotifsMessage'][0]['vue'])?$value['NotifsMessage'][0]['vue']:'';
+            $reclamjeson[$key]['msg'] = isset($value['NotifsMessage'][0]['expediteur_id']) ? $value['NotifsMessage'][0]['expediteur_id'] : '';
         }
         $nbrreclam = count($reclam);
         if ($nbrreclam != 0 && ($this -> request -> is('put') || $this -> request -> is('post'))) {   $this -> Session -> setFlash("$nbrreclam  Reclamation(s) retrouvée(s) ", 'warninginfo');
         } elseif ($nbrreclam == 0) { $this -> Session -> setFlash("Pas de résultats pour cette recherche !", 'warning');
         }
-        
-        $site = $this->etatparcsite();
+
+        $site = $this -> etatparcsite();
         $sit['sites'] = $site;
         $this -> set($sit);
         $rec['reclam'] = $reclamjeson;
@@ -71,7 +69,7 @@ class ReclamationsController  extends AppController {
         $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
         $rec['reclam'] = $reclam;
         $this -> set($rec);
-       //debug($reclam);die;
+        //debug($reclam);die;
     }
 
     public function addreclam() {
@@ -139,16 +137,15 @@ class ReclamationsController  extends AppController {
             //debug($rep);die;
             $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
             $rec['reclam'] = $reclam;
-			$site = $this-> Site -> find('first', array('conditions'=>array('Site.id'=>$reclam['Vehicule']['site_id'])));
-			$sit['site']= $site;
-			 $this -> set('site',$site);
-			 
-			 
+            $site = $this -> Site -> find('first', array('conditions' => array('Site.id' => $reclam['Vehicule']['site_id'])));
+            $sit['site'] = $site;
+            $this -> set('site', $site);
+
             $this -> set($rec);
-			
-             //debug($site);die;
-             //debug($reclam);die;
-            
+
+            //debug($site);die;
+            //debug($reclam);die;
+
         }
     }
 
@@ -160,7 +157,7 @@ class ReclamationsController  extends AppController {
             //debug($data);die;
             if ($this -> Reclamation -> save($this -> data, $validate = false)) {
                 $this -> Session -> setFlash('Réclamation annulée', 'notify');
-               $this -> redirect($this -> referer());
+                $this -> redirect($this -> referer());
             } else { $this -> Session -> setFlash('Probleme annulation', 'error');
                 $this -> redirect($this -> referer());
             }
@@ -215,22 +212,24 @@ class ReclamationsController  extends AppController {
     public function querycond($params) {//debug($params);die;
         $conditions = array();
         if (isset($params) && @$params['datedeb'] != '' && empty($params['datefin'])) {
-            $lengh=strlen($params['datedeb']);
-            $datedeb =substr_replace($params['datedeb'], '23:00:00', 11, $lengh);//debug($params['datedeb']); debug($datedeb);die;
+            $lengh = strlen($params['datedeb']);
+            $datedeb = substr_replace($params['datedeb'], '23:00:00', 11, $lengh);
+            //debug($params['datedeb']); debug($datedeb);die;
             $conditions += array('Reclamation.created >=' => $datedeb);
         }
-         if (isset($params) && @$params['datefin'] != '' && empty($params['datedeb'])) {
-              $lengh=strlen($params['datefin']);
-            $datefin =substr_replace($params['datefin'], '23:00:00', 11, $lengh);//debug($params['datefin']); debug($datefin);die;
+        if (isset($params) && @$params['datefin'] != '' && empty($params['datedeb'])) {
+            $lengh = strlen($params['datefin']);
+            $datefin = substr_replace($params['datefin'], '23:00:00', 11, $lengh);
+            //debug($params['datefin']); debug($datefin);die;
             $conditions += array('Reclamation.created <=' => $datefin);
         }
-         
-         if (isset($params) && @$params['datefin'] != '' && @$params['datedeb']!='') {
-             $lengh=strlen($params['datedeb']);
-            $datedeb =substr_replace($params['datedeb'], '23:00:00', 11, $lengh);
-            $lengh=strlen($params['datefin']);
-            $datefin =substr_replace($params['datefin'], '23:00:00', 11, $lengh);
-            $conditions += array('Reclamation.created BETWEEN ? AND ?' => array($datedeb,$datefin));
+
+        if (isset($params) && @$params['datefin'] != '' && @$params['datedeb'] != '') {
+            $lengh = strlen($params['datedeb']);
+            $datedeb = substr_replace($params['datedeb'], '23:00:00', 11, $lengh);
+            $lengh = strlen($params['datefin']);
+            $datefin = substr_replace($params['datefin'], '23:00:00', 11, $lengh);
+            $conditions += array('Reclamation.created BETWEEN ? AND ?' => array($datedeb, $datefin));
         }
         if (isset($params) && @$params['status'] != '') {
             $conditions += array('Reclamation.statu_id' => $params['status']);
@@ -239,7 +238,7 @@ class ReclamationsController  extends AppController {
         if (isset($params) && @$params['panne'] != '') {
             $conditions += array('Reclamation.panne_id' => $params['panne']);
         }
-        if (isset($params) && @$params['user'] != '' && isset($params) && @$params['user']!='Recherche utilisateur..') {
+        if (isset($params) && @$params['user'] != '' && isset($params) && @$params['user'] != 'Recherche utilisateur..') {
             $conditions += array('Reclamation.user_id' => $params['user']);
         }
 
@@ -277,17 +276,14 @@ class ReclamationsController  extends AppController {
 
     }
 
-    public function etatparcsite($option=null) {
-        
+    public function etatparcsite($option = null) {
+
         $conditions = array('active' => false);
-        if($this->isadmin()!=true && $option==1)
-                 {      
-                      $conditions+=array('Vehicule.site_id'=>$this->usersite()) ;  
-                         
-                     //debug($conditions);die;
-                 }
-        
-  
+        if ($this -> isadmin() != true && $option == 1) {
+            $conditions += array('Vehicule.site_id' => $this -> usersite());
+
+            //debug($conditions);die;
+        }
 
         $etat = $this -> Vehicule -> find('all', array('fields' => array('Vehicule.id', 'Vehicule.site_id', 'COUNT(`Vehicule`.`id`) as nbr'), 'group' => 'site_id', 'conditions' => $conditions, 'contain' => array('Site' => array('fields' => array('nom')))));
         /*
@@ -296,77 +292,69 @@ class ReclamationsController  extends AppController {
          'contain'=>array('Vehicule'=>array(
          'conditions' =>array('active'=>false),
          'fields'=>array('id','COUNT(`Vehicule`.`id`) as nbrpanne GROUPED BY
-        `site_id`'),
+         `site_id`'),
 
          )))); */
-          if($this->isadmin()!=true && $option==1)
-                 {
-                      $statpanne = array();
-        foreach ($etat as $key => $value) {
+        if ($this -> isadmin() != true && $option == 1) {
+            $statpanne = array();
+            foreach ($etat as $key => $value) {
 
-            $totalvehi = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
-          //  $statpanne[$key]['nbrpanne'] = $value[0]['nbr'];
-            $statpanne[$key]['Panne'] = ($value[0]['nbr'] * 100) / $totalvehi;
-             $statpanne[$key]['Valide'] = 100 -  $statpanne[$key]['Panne'] ;
-        //    $statpanne[$key]['sites'] = $value['Site']['nom'];
-        //    $statpanne[$key]['nbrvalide'] = $statpanne[$key]['totalvehicule']- $value[0]['nbr'];
+                $totalvehi = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
+                //  $statpanne[$key]['nbrpanne'] = $value[0]['nbr'];
+                $statpanne[$key]['Panne'] = ($value[0]['nbr'] * 100) / $totalvehi;
+                $statpanne[$key]['Valide'] = 100 - $statpanne[$key]['Panne'];
+                //    $statpanne[$key]['sites'] = $value['Site']['nom'];
+                //    $statpanne[$key]['nbrvalide'] =
+                // $statpanne[$key]['totalvehicule']- $value[0]['nbr'];
             }
-        $stat = array(
-        0 =>array('Label' =>'En Panne',
-                    'valeur' =>    $statpanne[0]['Panne']),
-        1=>array('Label' =>'Valide',
-                    'valeur' =>    $statpanne[0]['Valide'])
-        
-        );
-         $statpanne =array();
-         $statpanne = $stat;
-       // debug($statpanne);die;
-         
-                 }
-          else{
-        $statpanne = array();
-        foreach ($etat as $key => $value) {
+            $stat = array(0 => array('Label' => 'En Panne', 'valeur' => $statpanne[0]['Panne']), 1 => array('Label' => 'Valide', 'valeur' => $statpanne[0]['Valide']));
+            $statpanne = array();
+            $statpanne = $stat;
+            // debug($statpanne);die;
 
-            $statpanne[$key]['totalvehicule'] = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
-            $statpanne[$key]['nbrpanne'] = $value[0]['nbr'];
-            $statpanne[$key]['pcent'] = ($value[0]['nbr'] * 100) / $statpanne[$key]['totalvehicule'];
-            $statpanne[$key]['sites'] = $value['Site']['nom'];
-            $statpanne[$key]['nbrvalide'] = $statpanne[$key]['totalvehicule']- $value[0]['nbr'];
-        }
+        } else {
+            $statpanne = array();
+            foreach ($etat as $key => $value) {
+
+                $statpanne[$key]['totalvehicule'] = $this -> Vehicule -> find('count', array('conditions' => array('site_id' => $value['Vehicule']['site_id'])));
+                $statpanne[$key]['nbrpanne'] = $value[0]['nbr'];
+                $statpanne[$key]['pcent'] = ($value[0]['nbr'] * 100) / $statpanne[$key]['totalvehicule'];
+                $statpanne[$key]['sites'] = $value['Site']['nom'];
+                $statpanne[$key]['nbrvalide'] = $statpanne[$key]['totalvehicule'] - $value[0]['nbr'];
+            }
         }
         return $statpanne;
         //debug($statpanne);
         //die ;
 
     }
-                      
-public function admin_viewpdf($id = null) 
-    {
-   	//debug($id);die;
-if (!$id) {
-$this->Session->setFlash('Sorry, there was no PDF selected.');
-$this->redirect(array('action'=>'listreclam'), null, true);
-}
-$reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
-        $rec['reclam'] = $reclam;
-		
-		
-		$site = $this-> Site -> find('first', array('conditions'=>array('Site.id'=>$reclam['Vehicule']['site_id'])));
-			$sit['site']= $site;
-			 $this -> set('site',$site);
-        $this -> set($rec);
-		//debug($rec);die;
- // $pdf-> process (Router :: url ('/ admin /', true) ); 
-$this->layout = 'pdf'; //this will use the pdf.ctp layout
-$this->render();
- 
-}
 
- public function userdernierremessage(){
-            
-              $this -> layout = false;
+    public function admin_viewpdf($id = null) {
+        //debug($id);die;
+        if (!$id) {
+            $this -> Session -> setFlash('Sorry, there was no PDF selected.');
+            $this -> redirect(array('action' => 'listreclam'), null, true);
+        }
+        $reclam = $this -> Reclamation -> find('first', array('conditions' => array('Reclamation.id' => $id)));
+        $rec['reclam'] = $reclam;
+
+        $site = $this -> Site -> find('first', array('conditions' => array('Site.id' => $reclam['Vehicule']['site_id'])));
+        $sit['site'] = $site;
+        $this -> set('site', $site);
+        $this -> set($rec);
+        //debug($rec);die;
+        // $pdf-> process (Router :: url ('/ admin /', true) );
+        $this -> layout = 'pdf';
+        //this will use the pdf.ctp layout
+        $this -> render();
+
+    }
+
+    public function userdernierremessage() {
+
+        $this -> layout = false;
         $this -> Reclamation -> recursive = 3;
-	//	 debug($message);die; 
+        //	 debug($message);die;
         //@form:off
         $reclam = $this ->  Reclamation -> find('all', array('conditions'=>array('user_id'=>$this->iduser()),
         
@@ -382,27 +370,25 @@ $this->render();
           //debug($reclam);die;
         //@form:on
         $messagejson = array();
-		$item =0;
+        $item = 0;
         foreach ($reclam as $k => $v) {//debug($v);
-        	
-			
-			foreach ($v['Message'] as $key => $value) {//debug($v);
-				//debug($value);die;
-			$messagejson[$item]['identifiant'] = $v ['Reclamation']['identifiant'];
-            //$messagejson[$item]['expediteur'] = $v['User']['nom'];
-        	$messagejson[$item]['expediteur'] = $value['Userexp']['nom'];
-            $messagejson[$item]['dateenvoi'] = $value['created'];
-            $messagejson[$item]['msg'] = $value['msg'];
-            $item++;
-			}
-		
+
+            foreach ($v['Message'] as $key => $value) {//debug($v);
+                //debug($value);die;
+                $messagejson[$item]['identifiant'] = $v['Reclamation']['identifiant'];
+                //$messagejson[$item]['expediteur'] = $v['User']['nom'];
+                $messagejson[$item]['expediteur'] = $value['Userexp']['nom'];
+                $messagejson[$item]['dateenvoi'] = $value['created'];
+                $messagejson[$item]['msg'] = $value['msg'];
+                $item++;
+            }
+
         }//debug($messagejson);die;
         $this -> autoRender = false;
         return $messagejson;
-            
-            
-           //   debug($message);die; 
-        }
+
+        //   debug($message);die;
+    }
 
 }
 ?>
