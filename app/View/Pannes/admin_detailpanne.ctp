@@ -6,6 +6,7 @@
  if (isset($panne)): ?>
 	<h4><?php echo __('Détails Panne :'.' '.$panne['Panne']['label']) ?>
 </h4>
+<div class='container'>
 <div id='center'>
 	
 <?php echo $this -> Session -> flash(); ?>
@@ -32,5 +33,5 @@
 <?php echo $this -> Form -> input('label', array('label' => 'Désignation' )); ?>
 <?php echo $this -> Form -> input('description', array('label' => 'Description','type'=>'textarea' )); ?>
 <?php echo $this -> Form -> end(array('label'=>'Enregistrer','div'=>false, 'class'=>'btn btn-primary')); ?>
-</div>
+</div></div>
 <?php endif ?>
