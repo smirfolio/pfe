@@ -36,7 +36,9 @@ public $name = 'Panne';
 		3 => 'Panne Chassie',
 		4 => 'Autre'
 		);
-		
+        
+		$list = $this->find('list', array('fields'=>array('id','label')));
+        //  debug($list);die;
 		return $list;
 		
 	}
